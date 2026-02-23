@@ -1,6 +1,7 @@
 import polars as pl
 from edgar import set_identity, Company
 from tqdm import tqdm
+import os
 
 set_identity("Your Name yourname@example.com")
 
@@ -93,4 +94,4 @@ def get_global_filings(stock_dict):
 
 if __name__ == "__main__":
     final_df = get_global_filings(STOCKS)
-    final_df.write_parquet("global_filing_data.parquet")
+    final_df.write_parquet(os.path.join("data", "03_primary", "filing_data.parquet"))
