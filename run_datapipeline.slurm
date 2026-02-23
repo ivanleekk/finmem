@@ -7,6 +7,8 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=70G
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=ivan.lee@u.nus.edu
 
 echo "=========================================="
 echo "Job ID: $SLURM_JOB_ID"
