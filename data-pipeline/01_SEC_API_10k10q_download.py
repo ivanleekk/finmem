@@ -76,8 +76,8 @@ EIGHT_K_ITEM_CODE = [
 ]
 
 SIZE = 50
-START_DATE = "2021-08-15"
-END_DATE = "2023-04-25"
+START_DATE = "2020-01-01"
+END_DATE = "2024-12-31"
 SLEEP_TIME = 10
 
 # dependencies
@@ -255,12 +255,35 @@ def request_content(filings: List[str], sections: List[str]) -> List[str]:
 
 if __name__ == "__main__":
     # load data
-    unique_equities = ['''Enter the tickers you want to download here as a list of str''']
+    unique_equities = [
+        "NVDA",
+        "AAPL",
+        "MSFT",
+        "AVGO",
+        # "LLY",
+        # "JNJ",
+        # "ABBV",
+        # "UNH",
+        # "BRK-B",
+        # "JPM",
+        # "V",
+        # "BAC",
+        # "AMZN",
+        # "TSLA",
+        # "HD",
+        # "MCD",
+        # "WMT",
+        # "COST",
+        # "PG",
+        # "KO",
+    ]
 
     # get file index
     ten_k_index_table = get_index(unique_equities, "10-K")
     ten_q_index_table = get_index(unique_equities, "10-Q")
     # eight_k_index_table = get_index(unique_equities, "8-K")
+    print(ten_k_index_table)
+    print(ten_q_index_table)
 
     # request content
     ten_k_df = (
