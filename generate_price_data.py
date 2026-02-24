@@ -2,9 +2,7 @@ import os
 import polars as pl
 import pandas as pd
 import yfinance as yf
-from datetime import datetime
 
-# List of all tickers
 TICKERS = [
     "NVDA",
     "AAPL",
@@ -48,14 +46,25 @@ records = []
 for ticker in TICKERS:
     print(f"Fetching price for {ticker}...")
     try:
-        df = yf.download(ticker, start=START_DATE, end=END_DATE, progress=False)
-        if df.empty:
-            print(f"Warning: No data for {ticker}")
-            continue
+        df = yf.Ticker(ticker).history(start=START_DATE, end=END_DATE)
         df = df.reset_index()
-        for _, row in df.iterrows():
+        if df.shape[0] == 0 or "Close" not in df.columns:
+            print(f"Warning: No valid price data for {ticker}")
+            continue
+        for idx, row in df.iterrows():
+            est_time = row["Date"]
+            close = row["Close"]
+            if pd.isna(est_time) or pd.isna(close):
+                continue
+            # Normalize timezone-aware datetimes to naive date string
+            if hasattr(est_time, "tz_localize"):
+                est_time = est_time.tz_localize(None) if est_time.tzinfo else est_time
             records.append(
-                {"est_time": row["Date"], "equity": ticker, "close": row["Close"]}
+                {
+                    "est_time": pd.Timestamp(est_time).strftime("%Y-%m-%d"),
+                    "equity": ticker,
+                    "close": float(close),
+                }
             )
     except Exception as e:
         print(f"Error fetching {ticker}: {e}")
