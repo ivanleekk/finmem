@@ -17,7 +17,7 @@ price_df = pl.read_parquet(PRICE_PATH).to_pandas()
 # Load filing data
 filing_df = pl.read_parquet(FILING_PATH).to_pandas()
 # Load Alpaca news data
-alpaca_news_df = pl.read_parquet(ALPACA_NEWS_PATH).to_pandas()
+# alpaca_news_df = pl.read_parquet(ALPACA_NEWS_PATH).to_pandas()
 
 # Get all tickers
 all_tickers = price_df["equity"].unique().tolist()
@@ -44,18 +44,18 @@ for _, row in filing_df.iterrows():
         env_data_pkl[d]["filing_q"][ticker] = content
 
 # Fill Alpaca news
-for _, row in alpaca_news_df.iterrows():
-    d = (
-        pd.to_datetime(row["date"]).date()
-        if "date" in row
-        else pd.to_datetime(row["datetime"]).date()
-    )
-    ticker = row["equity"]
-    headline = row.get("title", "")
-    summary = row.get("summary", "")
-    news_item = f"{headline} {summary}".strip()
-    if news_item:
-        env_data_pkl[d]["news"].setdefault(ticker, []).append(news_item)
+# for _, row in alpaca_news_df.iterrows():
+#     d = (
+#         pd.to_datetime(row["date"]).date()
+#         if "date" in row
+#         else pd.to_datetime(row["datetime"]).date()
+#     )
+#     ticker = row["equity"]
+#     headline = row.get("title", "")
+#     summary = row.get("summary", "")
+#     news_item = f"{headline} {summary}".strip()
+#     if news_item:
+#         env_data_pkl[d]["news"].setdefault(ticker, []).append(news_item)
 
 # Fill Google news (if available)
 for ticker in all_tickers:
