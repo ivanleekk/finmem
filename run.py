@@ -107,12 +107,12 @@ def sim_func(
         if market_info[-1]:  # if done break
             break
             # only run agent step on Mondays
-            if market_info[0].weekday() == 0:
-                the_agent.step(market_info=market_info, run_mode=run_mode_var)  # type: ignore
-            pbar.update(1)
-            # save checkpoint every time, openai api is not stable
-            the_agent.save_checkpoint(path=checkpoint_path, force=True)
-            environment.save_checkpoint(path=checkpoint_path, force=True)
+        if market_info[0].weekday() == 0:
+            the_agent.step(market_info=market_info, run_mode=run_mode_var)  # type: ignore
+        pbar.update(1)
+        # save checkpoint every time, openai api is not stable
+        the_agent.save_checkpoint(path=checkpoint_path, force=True)
+        environment.save_checkpoint(path=checkpoint_path, force=True)
     # save result after finish
     the_agent.save_checkpoint(path=result_path, force=True)
     environment.save_checkpoint(path=result_path, force=True)
@@ -184,12 +184,12 @@ def sim_checkpoint(
         if market_info[-1]:
             break
             # only run agent step on Mondays
-            if market_info[0].weekday() == 0:
-                the_agent.step(market_info=market_info, run_mode=run_mode_var)  # type: ignore
-            pbar.update(1)
-            # save checkpoint every time, openai api is not stable
-            the_agent.save_checkpoint(path=checkpoint_path, force=True)
-            environment.save_checkpoint(path=checkpoint_path, force=True)
+        if market_info[0].weekday() == 0:
+            the_agent.step(market_info=market_info, run_mode=run_mode_var)  # type: ignore
+        pbar.update(1)
+        # save checkpoint every time, openai api is not stable
+        the_agent.save_checkpoint(path=checkpoint_path, force=True)
+        environment.save_checkpoint(path=checkpoint_path, force=True)
     # save result after finish
     the_agent.save_checkpoint(path=result_path, force=True)
     environment.save_checkpoint(path=result_path, force=True)

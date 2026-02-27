@@ -61,7 +61,11 @@ for ticker in TICKERS:
                 est_time = est_time.tz_localize(None) if est_time.tzinfo else est_time
             records.append(
                 {
-                    "est_time": pd.Timestamp(est_time).strftime("%Y-%m-%d"),
+                    "est_time": (
+                        pd.Timestamp(est_time).tz_localize(None)
+                        if pd.Timestamp(est_time).tzinfo
+                        else pd.Timestamp(est_time)
+                    ),
                     "equity": ticker,
                     "close": float(close),
                 }
