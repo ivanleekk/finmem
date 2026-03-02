@@ -7,7 +7,7 @@ import warnings
 from tqdm import tqdm
 from dotenv import load_dotenv
 from datetime import datetime
-from typing import Union
+from typing import Union, List, Optional
 from puppy import MarketEnvironment, LLMAgent, RunMode
 
 
@@ -58,7 +58,29 @@ def sim_func(
         "--trained-agent-path",
         help="Only used in test mode, the path of trained agent",
     ),
+    legacy_args: Optional[List[str]] = typer.Argument(
+        None,
+        help="Legacy positional mode: <market_data_path> <start_time> <end_time> <run_mode> <config_path> <checkpoint_path> <result_path> [trained_agent_path]",
+    ),
 ) -> None:
+    if legacy_args:
+        if len(legacy_args) not in {7, 8}:
+            raise ValueError(
+                "Legacy positional mode expects 7 or 8 arguments: "
+                "<market_data_path> <start_time> <end_time> <run_mode> "
+                "<config_path> <checkpoint_path> <result_path> [trained_agent_path]"
+            )
+        market_data_info_path = legacy_args[0]
+        start_time = legacy_args[1]
+        end_time = legacy_args[2]
+        run_mode = legacy_args[3]
+        config_path = legacy_args[4]
+        checkpoint_path = legacy_args[5]
+        result_path = legacy_args[6]
+        trained_agent_path = (
+            legacy_args[7] if len(legacy_args) == 8 else trained_agent_path
+        )
+
     # load config
     config = toml.load(config_path)
     # set up logging

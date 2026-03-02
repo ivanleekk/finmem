@@ -14,6 +14,12 @@
 set -euo pipefail
 set -x
 
+echo "[INFO] PWD: $PWD"
+echo "[INFO] Host: $(hostname)"
+echo "[INFO] Which uv: $(command -v uv)"
+uv run python -V
+sha256sum run_sim_array.slurm run.py export_results.py || true
+
 run_sim() {
     local mode="$1"
     local data_file="$2"
