@@ -206,7 +206,8 @@ def main() -> None:
             print(f"[WARN] Failed {ticker_dir.name}: {e}")
 
     if not summaries:
-        raise RuntimeError("No ticker results were exported.")
+        print("[WARN] No ticker results were exported.")
+        return
 
     print("Export completed:")
     for item in summaries:

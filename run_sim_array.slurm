@@ -11,6 +11,27 @@
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=ivan.lee@u.nus.edu
 
+set -u
+
+run_sim() {
+    local mode="$1"
+    local data_file="$2"
+    local start_date="$3"
+    local end_date="$4"
+    local config_path="$5"
+    local checkpoint_path="$6"
+    local result_path="$7"
+    local trained_path="${8:-}"
+
+    if [ "$mode" = "test" ]; then
+        echo "[CMD] uv run run.py sim --market-data-path $data_file --start-time $start_date --end-time $end_date --run-model $mode --config-path $config_path --checkpoint-path $checkpoint_path --result-path $result_path --trained-agent-path $trained_path"
+        uv run run.py sim --market-data-path "$data_file" --start-time "$start_date" --end-time "$end_date" --run-model "$mode" --config-path "$config_path" --checkpoint-path "$checkpoint_path" --result-path "$result_path" --trained-agent-path "$trained_path"
+    else
+        echo "[CMD] uv run run.py sim --market-data-path $data_file --start-time $start_date --end-time $end_date --run-model $mode --config-path $config_path --checkpoint-path $checkpoint_path --result-path $result_path"
+        uv run run.py sim --market-data-path "$data_file" --start-time "$start_date" --end-time "$end_date" --run-model "$mode" --config-path "$config_path" --checkpoint-path "$checkpoint_path" --result-path "$result_path"
+    fi
+}
+
 # Grab all environment files into an array
 FILES=(data/03_model_input/env_data_*.pkl)
 
@@ -48,26 +69,11 @@ for i in $(seq $START_IDX $END_IDX); do
 
         # Run Training Phase (2019)
         echo ">>> Starting TRAINING phase for $TICKER..."
-        uv run run.py sim \
-            --market-data-path "$FILE" \
-            --start-time "2019-01-01" \
-            --end-time "2019-12-31" \
-            --run-model "train" \
-            --config-path "$CONFIG_PATH" \
-            --checkpoint-path "$TRAIN_CKPT" \
-            --result-path "$TRAIN_RESULT"
+        run_sim "train" "$FILE" "2019-01-01" "2019-12-31" "$CONFIG_PATH" "$TRAIN_CKPT" "$TRAIN_RESULT"
 
         # Run Testing Phase (2020-2024)
         echo ">>> Starting TESTING phase for $TICKER..."
-        uv run run.py sim \
-            --market-data-path "$FILE" \
-            --start-time "2020-01-01" \
-            --end-time "2024-12-31" \
-            --run-model "test" \
-            --config-path "$CONFIG_PATH" \
-            --checkpoint-path "$TEST_CKPT" \
-            --result-path "$TEST_RESULT" \
-            --trained-agent-path "$TRAIN_CKPT"
+        run_sim "test" "$FILE" "2020-01-01" "2024-12-31" "$CONFIG_PATH" "$TEST_CKPT" "$TEST_RESULT" "$TRAIN_CKPT"
 
         echo ">>> Exporting backtest decisions for $TICKER..."
         if [ -d "$TEST_RESULT/agent_1" ]; then
