@@ -11,7 +11,8 @@
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=ivan.lee@u.nus.edu
 
-set -u
+set -euo pipefail
+set -x
 
 run_sim() {
     local mode="$1"
@@ -23,13 +24,23 @@ run_sim() {
     local result_path="$7"
     local trained_path="${8:-}"
 
+    local cmd=(uv run python run.py sim
+        --market-data-path "$data_file"
+        --start-time "$start_date"
+        --end-time "$end_date"
+        --run-model "$mode"
+        --config-path "$config_path"
+        --checkpoint-path "$checkpoint_path"
+        --result-path "$result_path")
+
     if [ "$mode" = "test" ]; then
-        echo "[CMD] uv run run.py sim --market-data-path $data_file --start-time $start_date --end-time $end_date --run-model $mode --config-path $config_path --checkpoint-path $checkpoint_path --result-path $result_path --trained-agent-path $trained_path"
-        uv run run.py sim --market-data-path "$data_file" --start-time "$start_date" --end-time "$end_date" --run-model "$mode" --config-path "$config_path" --checkpoint-path "$checkpoint_path" --result-path "$result_path" --trained-agent-path "$trained_path"
-    else
-        echo "[CMD] uv run run.py sim --market-data-path $data_file --start-time $start_date --end-time $end_date --run-model $mode --config-path $config_path --checkpoint-path $checkpoint_path --result-path $result_path"
-        uv run run.py sim --market-data-path "$data_file" --start-time "$start_date" --end-time "$end_date" --run-model "$mode" --config-path "$config_path" --checkpoint-path "$checkpoint_path" --result-path "$result_path"
+        cmd+=(--trained-agent-path "$trained_path")
     fi
+
+    printf '[CMD]'
+    printf ' %q' "${cmd[@]}"
+    printf '\n'
+    "${cmd[@]}"
 }
 
 # Grab all environment files into an array
