@@ -391,7 +391,7 @@ if __name__ == "__main__":
         "RR.L",
     ]
 
-    START_DAY = "2020-01-01"
+    START_DAY = "2019-01-01"
     END_DAY = "2024-12-31"
 
     print(f"Starting pipeline for {len(TIER_1_TICKERS)} tickers...")

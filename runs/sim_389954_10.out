@@ -1,0 +1,15 @@
+Task 10 handling indices 18 to 19
+========================================
+Processing Ticker: LLY
+Using Data File: data/03_model_input/env_data_LLY.pkl
+========================================
+>>> Starting TRAINING phase for LLY...
+>>> Starting TESTING phase for LLY...
+>>> Finished processing LLY.
+========================================
+Processing Ticker: MCD
+Using Data File: data/03_model_input/env_data_MCD.pkl
+========================================
+>>> Starting TRAINING phase for MCD...
+>>> Starting TESTING phase for MCD...
+>>> Finished processing MCD.

@@ -1,0 +1,15 @@
+Task 15 handling indices 28 to 29
+========================================
+Processing Ticker: UNH
+Using Data File: data/03_model_input/env_data_UNH.pkl
+========================================
+>>> Starting TRAINING phase for UNH...
+>>> Starting TESTING phase for UNH...
+>>> Finished processing UNH.
+========================================
+Processing Ticker: V
+Using Data File: data/03_model_input/env_data_V.pkl
+========================================
+>>> Starting TRAINING phase for V...
+>>> Starting TESTING phase for V...
+>>> Finished processing V.

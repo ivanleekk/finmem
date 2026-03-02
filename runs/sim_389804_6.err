@@ -1,0 +1,1612 @@
+  0%|          | 0/251 [00:00<?, ?it/s]╭───────────────────── Traceback (most recent call last) ──────────────────────╮
+│ /home/i/ivanlee/finmem/run.py:109 in sim_func                                │
+│                                                                              │
+│   106 │   │   logger.info(f"Record {market_info[-2]}")                       │
+│   107 │   │   if market_info[-1]:  # if done break                           │
+│   108 │   │   │   break                                                      │
+│ ❱ 109 │   │   the_agent.step(market_info=market_info, run_mode=run_mode_var) │
+│   110 │   │   pbar.update(1)                                                 │
+│   111 │   │   # save checkpoint every time, openai api is not stable         │
+│   112 │   │   the_agent.save_checkpoint(path=checkpoint_path, force=True)    │
+│                                                                              │
+│ ╭───────────────────────────────── locals ─────────────────────────────────╮ │
+│ │       checkpoint_path = 'data/06_train_checkpoint/BRK-B'                 │ │
+│ │                config = {                                                │ │
+│ │                         │   'chat': {                                    │ │
+│ │                         │   │   'model': 'z-ai/glm-4-32b',               │ │
+│ │                         │   │   'end_point':                             │ │
+│ │                         'https://openrouter.ai/api/v1/chat/completions', │ │
+│ │                         │   │   'system_message': 'You are a helpful     │ │
+│ │                         assistant.'                                      │ │
+│ │                         │   },                                           │ │
+│ │                         │   'general': {                                 │ │
+│ │                         │   │   'top_k': 3,                              │ │
+│ │                         │   │   'agent_name': 'agent_1',                 │ │
+│ │                         │   │   'look_back_window_size': 7,              │ │
+│ │                         │   │   'trading_symbol': 'BRK-B',               │ │
+│ │                         │   │   'character_string': 'You accumulate a    │ │
+│ │                         lot of information of the following sectors so   │ │
+│ │                         you are especial'+193                            │ │
+│ │                         │   },                                           │ │
+│ │                         │   'agent': {                                   │ │
+│ │                         │   │   'agent_1': {                             │ │
+│ │                         │   │   │   'embedding': {                       │ │
+│ │                         │   │   │   │   'detail': {                      │ │
+│ │                         │   │   │   │   │   'embedding_model':           │ │
+│ │                         'text-embedding-ada-002',                        │ │
+│ │                         │   │   │   │   │   'chunk_size': 5000,          │ │
+│ │                         │   │   │   │   │   'verbose': False             │ │
+│ │                         │   │   │   │   }                                │ │
+│ │                         │   │   │   }                                    │ │
+│ │                         │   │   }                                        │ │
+│ │                         │   },                                           │ │
+│ │                         │   'short': {                                   │ │
+│ │                         │   │   'importance_score_initialization':       │ │
+│ │                         'sample',                                        │ │
+│ │                         │   │   'decay_params': {                        │ │
+│ │                         │   │   │   'recency_factor': 3.0,               │ │
+│ │                         │   │   │   'importance_factor': 0.92            │ │
+│ │                         │   │   },                                       │ │
+│ │                         │   │   'clean_up_threshold_dict': {             │ │
+│ │                         │   │   │   'recency_threshold': 0.05,           │ │
+│ │                         │   │   │   'importance_threshold': 5            │ │
+│ │                         │   │   },                                       │ │
+│ │                         │   │   'jump_threshold_upper': 60               │ │
+│ │                         │   },                                           │ │
+│ │                         │   'mid': {                                     │ │
+│ │                         │   │   'jump_threshold_lower': 60,              │ │
+│ │                         │   │   'jump_threshold_upper': 80,              │ │
+│ │                         │   │   'importance_score_initialization':       │ │
+│ │                         'sample',                                        │ │
+│ │                         │   │   'decay_params': {                        │ │
+│ │                         │   │   │   'recency_factor': 90.0,              │ │
+│ │                         │   │   │   'importance_factor': 0.967           │ │
+│ │                         │   │   },                                       │ │
+│ │                         │   │   'clean_up_threshold_dict': {             │ │
+│ │                         │   │   │   'recency_threshold': 0.05,           │ │
+│ │                         │   │   │   'importance_threshold': 5            │ │
+│ │                         │   │   }                                        │ │
+│ │                         │   },                                           │ │
+│ │                         │   'long': {                                    │ │
+│ │                         │   │   'jump_threshold_lower': 80,              │ │
+│ │                         │   │   'importance_score_initialization':       │ │
+│ │                         'sample',                                        │ │
+│ │                         │   │   'decay_params': {                        │ │
+│ │                         │   │   │   'recency_factor': 365.0,             │ │
+│ │                         │   │   │   'importance_factor': 0.988           │ │
+│ │                         │   │   },                                       │ │
+│ │                         │   │   'clean_up_threshold_dict': {             │ │
+│ │                         │   │   │   'recency_threshold': 0.05,           │ │
+│ │                         │   │   │   'importance_threshold': 5            │ │
+│ │                         │   │   }                                        │ │
+│ │                         │   },                                           │ │
+│ │                         │   'reflection': {                              │ │
+│ │                         │   │   'importance_score_initialization':       │ │
+│ │                         'sample',                                        │ │
+│ │                         │   │   'decay_params': {                        │ │
+│ │                         │   │   │   'recency_factor': 365.0,             │ │
+│ │                         │   │   │   'importance_factor': 0.988           │ │
+│ │                         │   │   },                                       │ │
+│ │                         │   │   'clean_up_threshold_dict': {             │ │
+│ │                         │   │   │   'recency_threshold': 0.05,           │ │
+│ │                         │   │   │   'importance_threshold': 5            │ │
+│ │                         │   │   }                                        │ │
+│ │                         │   }                                            │ │
+│ │                         }                                                │ │
+│ │           config_path = 'config/generated_configs/BRK-B_config.toml'     │ │
+│ │              end_time = '2019-12-31'                                     │ │
+│ │          env_data_pkl = {                                                │ │
+│ │                         │   datetime.date(2019, 1, 2): {                 │ │
+│ │                         │   │   'price': {'BRK-B': 202.8000030517578},   │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 3): {                 │ │
+│ │                         │   │   'price': {'BRK-B': 191.66000366210938},  │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 4): {                 │ │
+│ │                         │   │   'price': {'BRK-B': 195.1999969482422},   │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 7): {                 │ │
+│ │                         │   │   'price': {'BRK-B': 196.91000366210938},  │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 8): {                 │ │
+│ │                         │   │   'price': {'BRK-B': 196.30999755859375},  │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 9): {                 │ │
+│ │                         │   │   'price': {'BRK-B': 196.3699951171875},   │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 10): {                │ │
+│ │                         │   │   'price': {'BRK-B': 196.5800018310547},   │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 11): {                │ │
+│ │                         │   │   'price': {'BRK-B': 196.2899932861328},   │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 14): {                │ │
+│ │                         │   │   'price': {'BRK-B': 195.77999877929688},  │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 15): {                │ │
+│ │                         │   │   'price': {'BRK-B': 196.94000244140625},  │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   ... +1500                                    │ │
+│ │                         }                                                │ │
+│ │           environment = <puppy.environment.MarketEnvironment object at   │ │
+│ │                         0x7d26c2ca6750>                                  │ │
+│ │                     f = <_io.BufferedReader                              │ │
+│ │                         name='data/03_model_input/env_data_BRK-B.pkl'>   │ │
+│ │          file_handler = <FileHandler                                     │ │
+│ │                         /home/i/ivanlee/finmem/data/04_model_output_log… │ │
+│ │                         (NOTSET)>                                        │ │
+│ │                logger = <Logger __main__ (INFO)>                         │ │
+│ │     logging_formatter = <logging.Formatter object at 0x7d26c3e36950>     │ │
+│ │ market_data_info_path = 'data/03_model_input/env_data_BRK-B.pkl'         │ │
+│ │           market_info = (                                                │ │
+│ │                         │   datetime.date(2019, 1, 2),                   │ │
+│ │                         │   202.8000030517578,                           │ │
+│ │                         │   None,                                        │ │
+│ │                         │   None,                                        │ │
+│ │                         │   '',                                          │ │
+│ │                         │   -11.139999389648438,                         │ │
+│ │                         │   False                                        │ │
+│ │                         )                                                │ │
+│ │                  pbar = <tqdm.std.tqdm object at 0x7d26c27853d0>         │ │
+│ │           result_path = 'data/05_train_model_output/BRK-B'               │ │
+│ │              run_mode = 'train'                                          │ │
+│ │          run_mode_var = <RunMode.Train: 0>                               │ │
+│ │            start_time = '2019-01-01'                                     │ │
+│ │             the_agent = <puppy.agent.LLMAgent object at 0x7d26c2d8a8d0>  │ │
+│ │    trained_agent_path = None                                             │ │
+│ ╰──────────────────────────────────────────────────────────────────────────╯ │
+│                                                                              │
+│ /home/i/ivanlee/finmem/puppy/agent.py:585 in step                            │
+│                                                                              │
+│   582 │   │   │   cur_date=cur_date, filing_q=cur_filing_q, filing_k=cur_fil │
+│   583 │   │   )                                                              │
+│   584 │   │   # 2. handling news                                             │
+│ ❱ 585 │   │   self._handling_news(cur_date=cur_date, news=cur_news)          │
+│   586 │   │   # 3. update the price to portfolio                             │
+│   587 │   │   self.portfolio.update_market_info(                             │
+│   588 │   │   │   new_market_price_info=cur_price,                           │
+│                                                                              │
+│ ╭──────────────────────────── locals ────────────────────────────╮           │
+│ │     cur_date = datetime.date(2019, 1, 2)                       │           │
+│ │ cur_filing_k = None                                            │           │
+│ │ cur_filing_q = None                                            │           │
+│ │     cur_news = ''                                              │           │
+│ │    cur_price = 202.8000030517578                               │           │
+│ │   cur_record = -11.139999389648438                             │           │
+│ │  market_info = (                                               │           │
+│ │                │   datetime.date(2019, 1, 2),                  │           │
+│ │                │   202.8000030517578,                          │           │
+│ │                │   None,                                       │           │
+│ │                │   None,                                       │           │
+│ │                │   '',                                         │           │
+│ │                │   -11.139999389648438,                        │           │
+│ │                │   False                                       │           │
+│ │                )                                               │           │
+│ │     run_mode = <RunMode.Train: 0>                              │           │
+│ │         self = <puppy.agent.LLMAgent object at 0x7d26c2d8a8d0> │           │
+│ ╰────────────────────────────────────────────────────────────────╯           │
+│                                                                              │
+│ /home/i/ivanlee/finmem/puppy/agent.py:181 in _handling_news                  │
+│                                                                              │
+│   178 │                                                                      │
+│   179 │   def _handling_news(self, cur_date: date, news: List[str]) -> None: │
+│   180 │   │   if news != {}:                                                 │
+│ ❱ 181 │   │   │   self.brain.add_memory_short(                               │
+│   182 │   │   │   │   symbol=self.trading_symbol, date=cur_date, text=news   │
+│   183 │   │   │   )                                                          │
+│   184                                                                        │
+│                                                                              │
+│ ╭────────────────────────── locals ──────────────────────────╮               │
+│ │ cur_date = datetime.date(2019, 1, 2)                       │               │
+│ │     news = ''                                              │               │
+│ │     self = <puppy.agent.LLMAgent object at 0x7d26c2d8a8d0> │               │
+│ ╰────────────────────────────────────────────────────────────╯               │
+│                                                                              │
+│ /home/i/ivanlee/finmem/puppy/memorydb.py:599 in add_memory_short             │
+│                                                                              │
+│   596 │   def add_memory_short(                                              │
+│   597 │   │   self, symbol: str, date: date, text: Union[List[str], str]     │
+│   598 │   ) -> None:                                                         │
+│ ❱ 599 │   │   self.short_term_memory.add_memory(symbol, date, text)          │
+│   600 │                                                                      │
+│   601 │   def add_memory_mid(                                                │
+│   602 │   │   self, symbol: str, date: date, text: Union[List[str], str]     │
+│                                                                              │
+│ ╭────────────────────────── locals ──────────────────────────╮               │
+│ │   date = datetime.date(2019, 1, 2)                         │               │
+│ │   self = <puppy.memorydb.BrainDB object at 0x7d26c2c93490> │               │
+│ │ symbol = 'BRK-B'                                           │               │
+│ │   text = ''                                                │               │
+│ ╰────────────────────────────────────────────────────────────╯               │
+│                                                                              │
+│ /home/i/ivanlee/finmem/puppy/memorydb.py:92 in add_memory                    │
+│                                                                              │
+│    89 │   │   if isinstance(text, str):                                      │
+│    90 │   │   │   text = [text]                                              │
+│    91 │   │   # get embedding                                                │
+│ ❱  92 │   │   emb = self.emb_func(text)                                      │
+│    93 │   │   faiss.normalize_L2(emb)                                        │
+│    94 │   │   ids = [self.id_generator() for _ in range(len(text))]          │
+│    95 │   │   # initialize importance score                                  │
+│                                                                              │
+│ ╭────────────────────────── locals ───────────────────────────╮              │
+│ │   date = datetime.date(2019, 1, 2)                          │              │
+│ │   self = <puppy.memorydb.MemoryDB object at 0x7d26c2cae5d0> │              │
+│ │ symbol = 'BRK-B'                                            │              │
+│ │   text = ['']                                               │              │
+│ ╰─────────────────────────────────────────────────────────────╯              │
+│                                                                              │
+│ /home/i/ivanlee/finmem/puppy/embedding.py:74 in __call__                     │
+│                                                                              │
+│   71 │   │   │   np.array: The embedding of the input text as a NumPy array. │
+│   72 │   │                                                                   │
+│   73 │   │   """                                                             │
+│ ❱ 74 │   │   return np.array(self._emb(text)).astype("float32")              │
+│   75 │                                                                       │
+│   76 │   def get_embedding_dimension(self):                                  │
+│   77 │   │   """                                                             │
+│                                                                              │
+│ ╭───────────────────────────────── locals ─────────────────────────────────╮ │
+│ │ self = <puppy.embedding.OpenAILongerThanContextEmb object at             │ │
+│ │        0x7d26c2caea90>                                                   │ │
+│ │ text = ['']                                                              │ │
+│ ╰──────────────────────────────────────────────────────────────────────────╯ │
+│                                                                              │
+│ /home/i/ivanlee/finmem/puppy/embedding.py:58 in _emb                         │
+│                                                                              │
+│   55 │   │   """                                                             │
+│   56 │   │   if isinstance(text, str):                                       │
+│   57 │   │   │   text = [text]                                               │
+│ ❱ 58 │   │   return self.emb_model.embed_documents(texts=text, chunk_size=No │
+│   59 │                                                                       │
+│   60 │   def __call__(self, text: Union[List[str], str]) -> np.ndarray:      │
+│   61 │   │   """                                                             │
+│                                                                              │
+│ ╭───────────────────────────────── locals ─────────────────────────────────╮ │
+│ │ self = <puppy.embedding.OpenAILongerThanContextEmb object at             │ │
+│ │        0x7d26c2caea90>                                                   │ │
+│ │ text = ['']                                                              │ │
+│ ╰──────────────────────────────────────────────────────────────────────────╯ │
+│                                                                              │
+│ /home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/langchain_communit │
+│ y/embeddings/openai.py:670 in embed_documents                                │
+│                                                                              │
+│   667 │   │   # NOTE: to keep things simple, we assume the list may contain  │
+│   668 │   │   #       than the maximum context and use length-safe embedding │
+│   669 │   │   engine = cast(str, self.deployment)                            │
+│ ❱ 670 │   │   return self._get_len_safe_embeddings(texts, engine=engine)     │
+│   671 │                                                                      │
+│   672 │   async def aembed_documents(                                        │
+│   673 │   │   self, texts: List[str], chunk_size: Optional[int] = 0          │
+│                                                                              │
+│ ╭───────────────────────────────── locals ─────────────────────────────────╮ │
+│ │ chunk_size = None                                                        │ │
+│ │     engine = 'text-embedding-ada-002'                                    │ │
+│ │       self = OpenAIEmbeddings(                                           │ │
+│ │              │   client=<openai.resources.embeddings.Embeddings object   │ │
+│ │              at 0x7d26ccd58d50>,                                         │ │
+│ │              │                                                           │ │
+│ │              async_client=<openai.resources.embeddings.AsyncEmbeddings   │ │
+│ │              object at 0x7d26c2bb8810>,                                  │ │
+│ │              │   model='text-embedding-ada-002',                         │ │
+│ │              │   deployment='text-embedding-ada-002',                    │ │
+│ │              │   openai_api_version='',                                  │ │
+│ │              │   openai_api_base=None,                                   │ │
+│ │              │   openai_api_type='',                                     │ │
+│ │              │   openai_proxy='',                                        │ │
+│ │              │   embedding_ctx_length=8191,                              │ │
+│ │              │   openai_api_key='Enter your OpenAI API Key here',        │ │
+│ │              │   openai_organization=None,                               │ │
+│ │              │   allowed_special=set(),                                  │ │
+│ │              │   disallowed_special='all',                               │ │
+│ │              │   chunk_size=5000,                                        │ │
+│ │              │   max_retries=2,                                          │ │
+│ │              │   request_timeout=None,                                   │ │
+│ │              │   headers=None,                                           │ │
+│ │              │   tiktoken_enabled=True,                                  │ │
+│ │              │   tiktoken_model_name=None,                               │ │
+│ │              │   show_progress_bar=False,                                │ │
+│ │              │   model_kwargs={},                                        │ │
+│ │              │   skip_empty=False,                                       │ │
+│ │              │   default_headers=None,                                   │ │
+│ │              │   default_query=None,                                     │ │
+│ │              │   retry_min_seconds=4,                                    │ │
+│ │              │   retry_max_seconds=20,                                   │ │
+│ │              │   http_client=None                                        │ │
+│ │              )                                                           │ │
+│ │      texts = ['']                                                        │ │
+│ ╰──────────────────────────────────────────────────────────────────────────╯ │
+│                                                                              │
+│ /home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/langchain_communit │
+│ y/embeddings/openai.py:517 in _get_len_safe_embeddings                       │
+│                                                                              │
+│   514 │   │   for i in range(len(texts)):                                    │
+│   515 │   │   │   _result = results[i]                                       │
+│   516 │   │   │   if len(_result) == 0:                                      │
+│ ❱ 517 │   │   │   │   average_embedded = embed_with_retry(                   │
+│   518 │   │   │   │   │   self,                                              │
+│   519 │   │   │   │   │   input="",                                          │
+│   520 │   │   │   │   │   **self._invocation_params,                         │
+│                                                                              │
+│ ╭───────────────────────────────── locals ─────────────────────────────────╮ │
+│ │         _chunk_size = 5000                                               │ │
+│ │               _iter = range(0, 0, 5000)                                  │ │
+│ │             _result = []                                                 │ │
+│ │  batched_embeddings = []                                                 │ │
+│ │          chunk_size = None                                               │ │
+│ │          embeddings = [[]]                                               │ │
+│ │            encoding = <Encoding 'cl100k_base'>                           │ │
+│ │              engine = 'text-embedding-ada-002'                           │ │
+│ │                   i = 0                                                  │ │
+│ │             indices = []                                                 │ │
+│ │          model_name = 'text-embedding-ada-002'                           │ │
+│ │ num_tokens_in_batch = [[]]                                               │ │
+│ │             results = [[]]                                               │ │
+│ │                self = OpenAIEmbeddings(                                  │ │
+│ │                       │   client=<openai.resources.embeddings.Embeddings │ │
+│ │                       object at 0x7d26ccd58d50>,                         │ │
+│ │                       │                                                  │ │
+│ │                       async_client=<openai.resources.embeddings.AsyncEm… │ │
+│ │                       object at 0x7d26c2bb8810>,                         │ │
+│ │                       │   model='text-embedding-ada-002',                │ │
+│ │                       │   deployment='text-embedding-ada-002',           │ │
+│ │                       │   openai_api_version='',                         │ │
+│ │                       │   openai_api_base=None,                          │ │
+│ │                       │   openai_api_type='',                            │ │
+│ │                       │   openai_proxy='',                               │ │
+│ │                       │   embedding_ctx_length=8191,                     │ │
+│ │                       │   openai_api_key='Enter your OpenAI API Key      │ │
+│ │                       here',                                             │ │
+│ │                       │   openai_organization=None,                      │ │
+│ │                       │   allowed_special=set(),                         │ │
+│ │                       │   disallowed_special='all',                      │ │
+│ │                       │   chunk_size=5000,                               │ │
+│ │                       │   max_retries=2,                                 │ │
+│ │                       │   request_timeout=None,                          │ │
+│ │                       │   headers=None,                                  │ │
+│ │                       │   tiktoken_enabled=True,                         │ │
+│ │                       │   tiktoken_model_name=None,                      │ │
+│ │                       │   show_progress_bar=False,                       │ │
+│ │                       │   model_kwargs={},                               │ │
+│ │                       │   skip_empty=False,                              │ │
+│ │                       │   default_headers=None,                          │ │
+│ │                       │   default_query=None,                            │ │
+│ │                       │   retry_min_seconds=4,                           │ │
+│ │                       │   retry_max_seconds=20,                          │ │
+│ │                       │   http_client=None                               │ │
+│ │                       )                                                  │ │
+│ │                text = ''                                                 │ │
+│ │               texts = ['']                                               │ │
+│ │            tiktoken = <module 'tiktoken' from                            │ │
+│ │                       '/home/i/ivanlee/finmem/.venv/lib/python3.11/site… │ │
+│ │               token = []                                                 │ │
+│ │              tokens = []                                                 │ │
+│ ╰──────────────────────────────────────────────────────────────────────────╯ │
+│                                                                              │
+│ /home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/langchain_communit │
+│ y/embeddings/openai.py:120 in embed_with_retry                               │
+│                                                                              │
+│   117 def embed_with_retry(embeddings: OpenAIEmbeddings, **kwargs: Any) -> A │
+│   118 │   """Use tenacity to retry the embedding call."""                    │
+│   119 │   if is_openai_v1():                                                 │
+│ ❱ 120 │   │   return embeddings.client.create(**kwargs)                      │
+│   121 │   retry_decorator = _create_retry_decorator(embeddings)              │
+│   122 │                                                                      │
+│   123 │   @retry_decorator                                                   │
+│                                                                              │
+│ ╭───────────────────────────────── locals ─────────────────────────────────╮ │
+│ │ embeddings = OpenAIEmbeddings(                                           │ │
+│ │              │   client=<openai.resources.embeddings.Embeddings object   │ │
+│ │              at 0x7d26ccd58d50>,                                         │ │
+│ │              │                                                           │ │
+│ │              async_client=<openai.resources.embeddings.AsyncEmbeddings   │ │
+│ │              object at 0x7d26c2bb8810>,                                  │ │
+│ │              │   model='text-embedding-ada-002',                         │ │
+│ │              │   deployment='text-embedding-ada-002',                    │ │
+│ │              │   openai_api_version='',                                  │ │
+│ │              │   openai_api_base=None,                                   │ │
+│ │              │   openai_api_type='',                                     │ │
+│ │              │   openai_proxy='',                                        │ │
+│ │              │   embedding_ctx_length=8191,                              │ │
+│ │              │   openai_api_key='Enter your OpenAI API Key here',        │ │
+│ │              │   openai_organization=None,                               │ │
+│ │              │   allowed_special=set(),                                  │ │
+│ │              │   disallowed_special='all',                               │ │
+│ │              │   chunk_size=5000,                                        │ │
+│ │              │   max_retries=2,                                          │ │
+│ │              │   request_timeout=None,                                   │ │
+│ │              │   headers=None,                                           │ │
+│ │              │   tiktoken_enabled=True,                                  │ │
+│ │              │   tiktoken_model_name=None,                               │ │
+│ │              │   show_progress_bar=False,                                │ │
+│ │              │   model_kwargs={},                                        │ │
+│ │              │   skip_empty=False,                                       │ │
+│ │              │   default_headers=None,                                   │ │
+│ │              │   default_query=None,                                     │ │
+│ │              │   retry_min_seconds=4,                                    │ │
+│ │              │   retry_max_seconds=20,                                   │ │
+│ │              │   http_client=None                                        │ │
+│ │              )                                                           │ │
+│ │     kwargs = {'input': '', 'model': 'text-embedding-ada-002'}            │ │
+│ ╰──────────────────────────────────────────────────────────────────────────╯ │
+│                                                                              │
+│ /home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/openai/resources/e │
+│ mbeddings.py:132 in create                                                   │
+│                                                                              │
+│   129 │   │   │                                                              │
+│   130 │   │   │   return obj                                                 │
+│   131 │   │                                                                  │
+│ ❱ 132 │   │   return self._post(                                             │
+│   133 │   │   │   "/embeddings",                                             │
+│   134 │   │   │   body=maybe_transform(params, embedding_create_params.Embed │
+│   135 │   │   │   options=make_request_options(                              │
+│                                                                              │
+│ ╭───────────────────────────────── locals ─────────────────────────────────╮ │
+│ │      dimensions = <openai.Omit object at 0x7d27f5fb41d0>                 │ │
+│ │ encoding_format = <openai.Omit object at 0x7d27f5fb41d0>                 │ │
+│ │      extra_body = None                                                   │ │
+│ │   extra_headers = None                                                   │ │
+│ │     extra_query = None                                                   │ │
+│ │           input = ''                                                     │ │
+│ │           model = 'text-embedding-ada-002'                               │ │
+│ │          params = {                                                      │ │
+│ │                   │   'input': '',                                       │ │
+│ │                   │   'model': 'text-embedding-ada-002',                 │ │
+│ │                   │   'user': <openai.Omit object at 0x7d27f5fb41d0>,    │ │
+│ │                   │   'dimensions': <openai.Omit object at               │ │
+│ │                   0x7d27f5fb41d0>,                                       │ │
+│ │                   │   'encoding_format': 'base64'                        │ │
+│ │                   }                                                      │ │
+│ │            self = <openai.resources.embeddings.Embeddings object at      │ │
+│ │                   0x7d26ccd58d50>                                        │ │
+│ │         timeout = NOT_GIVEN                                              │ │
+│ │            user = <openai.Omit object at 0x7d27f5fb41d0>                 │ │
+│ ╰──────────────────────────────────────────────────────────────────────────╯ │
+│                                                                              │
+│ /home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/openai/_base_clien │
+│ t.py:1259 in post                                                            │
+│                                                                              │
+│   1256 │   │   opts = FinalRequestOptions.construct(                         │
+│   1257 │   │   │   method="post", url=path, json_data=body, files=to_httpx_f │
+│   1258 │   │   )                                                             │
+│ ❱ 1259 │   │   return cast(ResponseT, self.request(cast_to, opts, stream=str │
+│   1260 │                                                                     │
+│   1261 │   def patch(                                                        │
+│   1262 │   │   self,                                                         │
+│                                                                              │
+│ ╭───────────────────────────────── locals ─────────────────────────────────╮ │
+│ │       body = {                                                           │ │
+│ │              │   'input': '',                                            │ │
+│ │              │   'model': 'text-embedding-ada-002',                      │ │
+│ │              │   'encoding_format': 'base64'                             │ │
+│ │              }                                                           │ │
+│ │      files = None                                                        │ │
+│ │    options = {                                                           │ │
+│ │              │   'post_parser': <function                                │ │
+│ │              Embeddings.create.<locals>.parser at 0x7d26c276f880>        │ │
+│ │              }                                                           │ │
+│ │       opts = FinalRequestOptions(                                        │ │
+│ │              │   method='post',                                          │ │
+│ │              │   url='/embeddings',                                      │ │
+│ │              │   files=None,                                             │ │
+│ │              │   post_parser=<function Embeddings.create.<locals>.parser │ │
+│ │              at 0x7d26c276f880>,                                         │ │
+│ │              │   json_data={                                             │ │
+│ │              │   │   'input': '',                                        │ │
+│ │              │   │   'model': 'text-embedding-ada-002',                  │ │
+│ │              │   │   'encoding_format': 'base64'                         │ │
+│ │              │   },                                                      │ │
+│ │              │   params={},                                              │ │
+│ │              │   headers=NOT_GIVEN,                                      │ │
+│ │              │   max_retries=NOT_GIVEN,                                  │ │
+│ │              │   timeout=NOT_GIVEN,                                      │ │
+│ │              │   idempotency_key=None,                                   │ │
+│ │              │   follow_redirects=None,                                  │ │
+│ │              │   extra_json=None                                         │ │
+│ │              )                                                           │ │
+│ │       path = '/embeddings'                                               │ │
+│ │       self = <openai.OpenAI object at 0x7d26c2f769d0>                    │ │
+│ │     stream = False                                                       │ │
+│ │ stream_cls = None                                                        │ │
+│ ╰──────────────────────────────────────────────────────────────────────────╯ │
+│                                                                              │
+│ /home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/openai/_base_clien │
+│ t.py:1047 in request                                                         │
+│                                                                              │
+│   1044 │   │   │   │   │   err.response.read()                               │
+│   1045 │   │   │   │                                                         │
+│   1046 │   │   │   │   log.debug("Re-raising status error")                  │
+│ ❱ 1047 │   │   │   │   raise self._make_status_error_from_response(err.respo │
+│   1048 │   │   │                                                             │
+│   1049 │   │   │   break                                                     │
+│   1050                                                                       │
+│                                                                              │
+│ ╭───────────────────────────────── locals ─────────────────────────────────╮ │
+│ │     input_options = FinalRequestOptions(                                 │ │
+│ │                     │   method='post',                                   │ │
+│ │                     │   url='/embeddings',                               │ │
+│ │                     │   files=None,                                      │ │
+│ │                     │   post_parser=<function                            │ │
+│ │                     Embeddings.create.<locals>.parser at                 │ │
+│ │                     0x7d26c276f880>,                                     │ │
+│ │                     │   json_data={                                      │ │
+│ │                     │   │   'input': '',                                 │ │
+│ │                     │   │   'model': 'text-embedding-ada-002',           │ │
+│ │                     │   │   'encoding_format': 'base64'                  │ │
+│ │                     │   },                                               │ │
+│ │                     │   params={},                                       │ │
+│ │                     │   headers=NOT_GIVEN,                               │ │
+│ │                     │   max_retries=NOT_GIVEN,                           │ │
+│ │                     │   timeout=NOT_GIVEN,                               │ │
+│ │                     │                                                    │ │
+│ │                     idempotency_key='stainless-python-retry-d99e2f42-8f… │ │
+│ │                     │   follow_redirects=None,                           │ │
+│ │                     │   extra_json=None                                  │ │
+│ │                     )                                                    │ │
+│ │            kwargs = {}                                                   │ │
+│ │       max_retries = 2                                                    │ │
+│ │           options = FinalRequestOptions(                                 │ │
+│ │                     │   method='post',                                   │ │
+│ │                     │   url='/embeddings',                               │ │
+│ │                     │   files=None,                                      │ │
+│ │                     │   post_parser=<function                            │ │
+│ │                     Embeddings.create.<locals>.parser at                 │ │
+│ │                     0x7d26c276f880>,                                     │ │
+│ │                     │   json_data={                                      │ │
+│ │                     │   │   'input': '',                                 │ │
+│ │                     │   │   'model': 'text-embedding-ada-002',           │ │
+│ │                     │   │   'encoding_format': 'base64'                  │ │
+│ │                     │   },                                               │ │
+│ │                     │   params={},                                       │ │
+│ │                     │   headers=NOT_GIVEN,                               │ │
+│ │                     │   max_retries=NOT_GIVEN,                           │ │
+│ │                     │   timeout=NOT_GIVEN,                               │ │
+│ │                     │                                                    │ │
+│ │                     idempotency_key='stainless-python-retry-d99e2f42-8f… │ │
+│ │                     │   follow_redirects=None,                           │ │
+│ │                     │   extra_json=None                                  │ │
+│ │                     )                                                    │ │
+│ │ remaining_retries = 2                                                    │ │
+│ │           request = <Request('POST',                                     │ │
+│ │                     'https://api.openai.com/v1/embeddings')>             │ │
+│ │          response = <Response [401 Unauthorized]>                        │ │
+│ │     retries_taken = 0                                                    │ │
+│ │              self = <openai.OpenAI object at 0x7d26c2f769d0>             │ │
+│ │            stream = False                                                │ │
+│ │        stream_cls = None                                                 │ │
+│ ╰──────────────────────────────────────────────────────────────────────────╯ │
+╰──────────────────────────────────────────────────────────────────────────────╯
+AuthenticationError: Error code: 401 - {'error': {'message': 'Incorrect API key 
+provided: Enter yo******************here. You can find your API key at 
+https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error',
+'param': None, 'code': 'invalid_api_key'}}
+  0%|          | 0/251 [00:03<?, ?it/s]
+╭───────────────────── Traceback (most recent call last) ──────────────────────╮
+│ /home/i/ivanlee/finmem/run.py:98 in sim_func                                 │
+│                                                                              │
+│    95 │   if run_mode_var == RunMode.Train:                                  │
+│    96 │   │   the_agent = LLMAgent.from_config(config)                       │
+│    97 │   else:                                                              │
+│ ❱  98 │   │   the_agent = LLMAgent.load_checkpoint(path=os.path.join(trained │
+│    99 │   # start simulation                                                 │
+│   100 │   pbar = tqdm(total=environment.simulation_length)                   │
+│   101 │   while True:                                                        │
+│                                                                              │
+│ ╭───────────────────────────────── locals ─────────────────────────────────╮ │
+│ │       checkpoint_path = 'data/08_test_checkpoint/BRK-B'                  │ │
+│ │                config = {                                                │ │
+│ │                         │   'chat': {                                    │ │
+│ │                         │   │   'model': 'z-ai/glm-4-32b',               │ │
+│ │                         │   │   'end_point':                             │ │
+│ │                         'https://openrouter.ai/api/v1/chat/completions', │ │
+│ │                         │   │   'system_message': 'You are a helpful     │ │
+│ │                         assistant.'                                      │ │
+│ │                         │   },                                           │ │
+│ │                         │   'general': {                                 │ │
+│ │                         │   │   'top_k': 3,                              │ │
+│ │                         │   │   'agent_name': 'agent_1',                 │ │
+│ │                         │   │   'look_back_window_size': 7,              │ │
+│ │                         │   │   'trading_symbol': 'BRK-B',               │ │
+│ │                         │   │   'character_string': 'You accumulate a    │ │
+│ │                         lot of information of the following sectors so   │ │
+│ │                         you are especial'+193                            │ │
+│ │                         │   },                                           │ │
+│ │                         │   'agent': {                                   │ │
+│ │                         │   │   'agent_1': {                             │ │
+│ │                         │   │   │   'embedding': {                       │ │
+│ │                         │   │   │   │   'detail': {                      │ │
+│ │                         │   │   │   │   │   'embedding_model':           │ │
+│ │                         'text-embedding-ada-002',                        │ │
+│ │                         │   │   │   │   │   'chunk_size': 5000,          │ │
+│ │                         │   │   │   │   │   'verbose': False             │ │
+│ │                         │   │   │   │   }                                │ │
+│ │                         │   │   │   }                                    │ │
+│ │                         │   │   }                                        │ │
+│ │                         │   },                                           │ │
+│ │                         │   'short': {                                   │ │
+│ │                         │   │   'importance_score_initialization':       │ │
+│ │                         'sample',                                        │ │
+│ │                         │   │   'decay_params': {                        │ │
+│ │                         │   │   │   'recency_factor': 3.0,               │ │
+│ │                         │   │   │   'importance_factor': 0.92            │ │
+│ │                         │   │   },                                       │ │
+│ │                         │   │   'clean_up_threshold_dict': {             │ │
+│ │                         │   │   │   'recency_threshold': 0.05,           │ │
+│ │                         │   │   │   'importance_threshold': 5            │ │
+│ │                         │   │   },                                       │ │
+│ │                         │   │   'jump_threshold_upper': 60               │ │
+│ │                         │   },                                           │ │
+│ │                         │   'mid': {                                     │ │
+│ │                         │   │   'jump_threshold_lower': 60,              │ │
+│ │                         │   │   'jump_threshold_upper': 80,              │ │
+│ │                         │   │   'importance_score_initialization':       │ │
+│ │                         'sample',                                        │ │
+│ │                         │   │   'decay_params': {                        │ │
+│ │                         │   │   │   'recency_factor': 90.0,              │ │
+│ │                         │   │   │   'importance_factor': 0.967           │ │
+│ │                         │   │   },                                       │ │
+│ │                         │   │   'clean_up_threshold_dict': {             │ │
+│ │                         │   │   │   'recency_threshold': 0.05,           │ │
+│ │                         │   │   │   'importance_threshold': 5            │ │
+│ │                         │   │   }                                        │ │
+│ │                         │   },                                           │ │
+│ │                         │   'long': {                                    │ │
+│ │                         │   │   'jump_threshold_lower': 80,              │ │
+│ │                         │   │   'importance_score_initialization':       │ │
+│ │                         'sample',                                        │ │
+│ │                         │   │   'decay_params': {                        │ │
+│ │                         │   │   │   'recency_factor': 365.0,             │ │
+│ │                         │   │   │   'importance_factor': 0.988           │ │
+│ │                         │   │   },                                       │ │
+│ │                         │   │   'clean_up_threshold_dict': {             │ │
+│ │                         │   │   │   'recency_threshold': 0.05,           │ │
+│ │                         │   │   │   'importance_threshold': 5            │ │
+│ │                         │   │   }                                        │ │
+│ │                         │   },                                           │ │
+│ │                         │   'reflection': {                              │ │
+│ │                         │   │   'importance_score_initialization':       │ │
+│ │                         'sample',                                        │ │
+│ │                         │   │   'decay_params': {                        │ │
+│ │                         │   │   │   'recency_factor': 365.0,             │ │
+│ │                         │   │   │   'importance_factor': 0.988           │ │
+│ │                         │   │   },                                       │ │
+│ │                         │   │   'clean_up_threshold_dict': {             │ │
+│ │                         │   │   │   'recency_threshold': 0.05,           │ │
+│ │                         │   │   │   'importance_threshold': 5            │ │
+│ │                         │   │   }                                        │ │
+│ │                         │   }                                            │ │
+│ │                         }                                                │ │
+│ │           config_path = 'config/generated_configs/BRK-B_config.toml'     │ │
+│ │              end_time = '2024-12-31'                                     │ │
+│ │          env_data_pkl = {                                                │ │
+│ │                         │   datetime.date(2019, 1, 2): {                 │ │
+│ │                         │   │   'price': {'BRK-B': 202.8000030517578},   │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 3): {                 │ │
+│ │                         │   │   'price': {'BRK-B': 191.66000366210938},  │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 4): {                 │ │
+│ │                         │   │   'price': {'BRK-B': 195.1999969482422},   │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 7): {                 │ │
+│ │                         │   │   'price': {'BRK-B': 196.91000366210938},  │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 8): {                 │ │
+│ │                         │   │   'price': {'BRK-B': 196.30999755859375},  │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 9): {                 │ │
+│ │                         │   │   'price': {'BRK-B': 196.3699951171875},   │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 10): {                │ │
+│ │                         │   │   'price': {'BRK-B': 196.5800018310547},   │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 11): {                │ │
+│ │                         │   │   'price': {'BRK-B': 196.2899932861328},   │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 14): {                │ │
+│ │                         │   │   'price': {'BRK-B': 195.77999877929688},  │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 15): {                │ │
+│ │                         │   │   'price': {'BRK-B': 196.94000244140625},  │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   ... +1500                                    │ │
+│ │                         }                                                │ │
+│ │           environment = <puppy.environment.MarketEnvironment object at   │ │
+│ │                         0x720d99092650>                                  │ │
+│ │                     f = <_io.BufferedReader                              │ │
+│ │                         name='data/03_model_input/env_data_BRK-B.pkl'>   │ │
+│ │          file_handler = <FileHandler                                     │ │
+│ │                         /home/i/ivanlee/finmem/data/04_model_output_log… │ │
+│ │                         (NOTSET)>                                        │ │
+│ │                logger = <Logger __main__ (INFO)>                         │ │
+│ │     logging_formatter = <logging.Formatter object at 0x720d991779d0>     │ │
+│ │ market_data_info_path = 'data/03_model_input/env_data_BRK-B.pkl'         │ │
+│ │           result_path = 'data/07_test_model_output/BRK-B'                │ │
+│ │              run_mode = 'test'                                           │ │
+│ │          run_mode_var = <RunMode.Test: 1>                                │ │
+│ │            start_time = '2020-01-01'                                     │ │
+│ │    trained_agent_path = 'data/06_train_checkpoint/BRK-B'                 │ │
+│ ╰──────────────────────────────────────────────────────────────────────────╯ │
+│                                                                              │
+│ /home/i/ivanlee/finmem/puppy/agent.py:639 in load_checkpoint                 │
+│                                                                              │
+│   636 │   @classmethod                                                       │
+│   637 │   def load_checkpoint(cls, path: str) -> "LLMAgent":                 │
+│   638 │   │   # load state dict                                              │
+│ ❱ 639 │   │   with open(os.path.join(path, "state_dict.pkl"), "rb") as f:    │
+│   640 │   │   │   state_dict = pickle.load(f)                                │
+│   641 │   │   # load brain                                                   │
+│   642 │   │   brain = BrainDB.load_checkpoint(path=os.path.join(path, "brain │
+│                                                                              │
+│ ╭──────────────────── locals ─────────────────────╮                          │
+│ │ path = 'data/06_train_checkpoint/BRK-B/agent_1' │                          │
+│ ╰─────────────────────────────────────────────────╯                          │
+╰──────────────────────────────────────────────────────────────────────────────╯
+FileNotFoundError: [Errno 2] No such file or directory: 
+'data/06_train_checkpoint/BRK-B/agent_1/state_dict.pkl'
+  0%|          | 0/251 [00:00<?, ?it/s]╭───────────────────── Traceback (most recent call last) ──────────────────────╮
+│ /home/i/ivanlee/finmem/run.py:109 in sim_func                                │
+│                                                                              │
+│   106 │   │   logger.info(f"Record {market_info[-2]}")                       │
+│   107 │   │   if market_info[-1]:  # if done break                           │
+│   108 │   │   │   break                                                      │
+│ ❱ 109 │   │   the_agent.step(market_info=market_info, run_mode=run_mode_var) │
+│   110 │   │   pbar.update(1)                                                 │
+│   111 │   │   # save checkpoint every time, openai api is not stable         │
+│   112 │   │   the_agent.save_checkpoint(path=checkpoint_path, force=True)    │
+│                                                                              │
+│ ╭───────────────────────────────── locals ─────────────────────────────────╮ │
+│ │       checkpoint_path = 'data/06_train_checkpoint/COST'                  │ │
+│ │                config = {                                                │ │
+│ │                         │   'chat': {                                    │ │
+│ │                         │   │   'model': 'z-ai/glm-4-32b',               │ │
+│ │                         │   │   'end_point':                             │ │
+│ │                         'https://openrouter.ai/api/v1/chat/completions', │ │
+│ │                         │   │   'system_message': 'You are a helpful     │ │
+│ │                         assistant.'                                      │ │
+│ │                         │   },                                           │ │
+│ │                         │   'general': {                                 │ │
+│ │                         │   │   'top_k': 3,                              │ │
+│ │                         │   │   'agent_name': 'agent_1',                 │ │
+│ │                         │   │   'look_back_window_size': 7,              │ │
+│ │                         │   │   'trading_symbol': 'COST',                │ │
+│ │                         │   │   'character_string': 'You accumulate a    │ │
+│ │                         lot of information of the following sectors so   │ │
+│ │                         you are especial'+196                            │ │
+│ │                         │   },                                           │ │
+│ │                         │   'agent': {                                   │ │
+│ │                         │   │   'agent_1': {                             │ │
+│ │                         │   │   │   'embedding': {                       │ │
+│ │                         │   │   │   │   'detail': {                      │ │
+│ │                         │   │   │   │   │   'embedding_model':           │ │
+│ │                         'text-embedding-ada-002',                        │ │
+│ │                         │   │   │   │   │   'chunk_size': 5000,          │ │
+│ │                         │   │   │   │   │   'verbose': False             │ │
+│ │                         │   │   │   │   }                                │ │
+│ │                         │   │   │   }                                    │ │
+│ │                         │   │   }                                        │ │
+│ │                         │   },                                           │ │
+│ │                         │   'short': {                                   │ │
+│ │                         │   │   'importance_score_initialization':       │ │
+│ │                         'sample',                                        │ │
+│ │                         │   │   'decay_params': {                        │ │
+│ │                         │   │   │   'recency_factor': 3.0,               │ │
+│ │                         │   │   │   'importance_factor': 0.92            │ │
+│ │                         │   │   },                                       │ │
+│ │                         │   │   'clean_up_threshold_dict': {             │ │
+│ │                         │   │   │   'recency_threshold': 0.05,           │ │
+│ │                         │   │   │   'importance_threshold': 5            │ │
+│ │                         │   │   },                                       │ │
+│ │                         │   │   'jump_threshold_upper': 60               │ │
+│ │                         │   },                                           │ │
+│ │                         │   'mid': {                                     │ │
+│ │                         │   │   'jump_threshold_lower': 60,              │ │
+│ │                         │   │   'jump_threshold_upper': 80,              │ │
+│ │                         │   │   'importance_score_initialization':       │ │
+│ │                         'sample',                                        │ │
+│ │                         │   │   'decay_params': {                        │ │
+│ │                         │   │   │   'recency_factor': 90.0,              │ │
+│ │                         │   │   │   'importance_factor': 0.967           │ │
+│ │                         │   │   },                                       │ │
+│ │                         │   │   'clean_up_threshold_dict': {             │ │
+│ │                         │   │   │   'recency_threshold': 0.05,           │ │
+│ │                         │   │   │   'importance_threshold': 5            │ │
+│ │                         │   │   }                                        │ │
+│ │                         │   },                                           │ │
+│ │                         │   'long': {                                    │ │
+│ │                         │   │   'jump_threshold_lower': 80,              │ │
+│ │                         │   │   'importance_score_initialization':       │ │
+│ │                         'sample',                                        │ │
+│ │                         │   │   'decay_params': {                        │ │
+│ │                         │   │   │   'recency_factor': 365.0,             │ │
+│ │                         │   │   │   'importance_factor': 0.988           │ │
+│ │                         │   │   },                                       │ │
+│ │                         │   │   'clean_up_threshold_dict': {             │ │
+│ │                         │   │   │   'recency_threshold': 0.05,           │ │
+│ │                         │   │   │   'importance_threshold': 5            │ │
+│ │                         │   │   }                                        │ │
+│ │                         │   },                                           │ │
+│ │                         │   'reflection': {                              │ │
+│ │                         │   │   'importance_score_initialization':       │ │
+│ │                         'sample',                                        │ │
+│ │                         │   │   'decay_params': {                        │ │
+│ │                         │   │   │   'recency_factor': 365.0,             │ │
+│ │                         │   │   │   'importance_factor': 0.988           │ │
+│ │                         │   │   },                                       │ │
+│ │                         │   │   'clean_up_threshold_dict': {             │ │
+│ │                         │   │   │   'recency_threshold': 0.05,           │ │
+│ │                         │   │   │   'importance_threshold': 5            │ │
+│ │                         │   │   }                                        │ │
+│ │                         │   }                                            │ │
+│ │                         }                                                │ │
+│ │           config_path = 'config/generated_configs/COST_config.toml'      │ │
+│ │              end_time = '2019-12-31'                                     │ │
+│ │          env_data_pkl = {                                                │ │
+│ │                         │   datetime.date(2019, 1, 2): {                 │ │
+│ │                         │   │   'price': {'COST': 185.1300506591797},    │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 3): {                 │ │
+│ │                         │   │   'price': {'COST': 181.2061004638672},    │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 4): {                 │ │
+│ │                         │   │   'price': {'COST': 186.46817016601562},   │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 7): {                 │ │
+│ │                         │   │   'price': {'COST': 187.15524291992188},   │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 8): {                 │ │
+│ │                         │   │   'price': {'COST': 188.55667114257812},   │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 9): {                 │ │
+│ │                         │   │   'price': {'COST': 189.77725219726562},   │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 10): {                │ │
+│ │                         │   │   'price': {'COST': 190.44631958007812},   │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 11): {                │ │
+│ │                         │   │   'price': {'COST': 190.3287811279297},    │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 14): {                │ │
+│ │                         │   │   'price': {'COST': 188.96356201171875},   │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 15): {                │ │
+│ │                         │   │   'price': {'COST': 190.79898071289062},   │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   ... +1500                                    │ │
+│ │                         }                                                │ │
+│ │           environment = <puppy.environment.MarketEnvironment object at   │ │
+│ │                         0x70c82f69a990>                                  │ │
+│ │                     f = <_io.BufferedReader                              │ │
+│ │                         name='data/03_model_input/env_data_COST.pkl'>    │ │
+│ │          file_handler = <FileHandler                                     │ │
+│ │                         /home/i/ivanlee/finmem/data/04_model_output_log… │ │
+│ │                         (NOTSET)>                                        │ │
+│ │                logger = <Logger __main__ (INFO)>                         │ │
+│ │     logging_formatter = <logging.Formatter object at 0x70c82f976e10>     │ │
+│ │ market_data_info_path = 'data/03_model_input/env_data_COST.pkl'          │ │
+│ │           market_info = (                                                │ │
+│ │                         │   datetime.date(2019, 1, 2),                   │ │
+│ │                         │   185.1300506591797,                           │ │
+│ │                         │   None,                                        │ │
+│ │                         │   None,                                        │ │
+│ │                         │   '',                                          │ │
+│ │                         │   -3.9239501953125,                            │ │
+│ │                         │   False                                        │ │
+│ │                         )                                                │ │
+│ │                  pbar = <tqdm.std.tqdm object at 0x70c82f6ffa90>         │ │
+│ │           result_path = 'data/05_train_model_output/COST'                │ │
+│ │              run_mode = 'train'                                          │ │
+│ │          run_mode_var = <RunMode.Train: 0>                               │ │
+│ │            start_time = '2019-01-01'                                     │ │
+│ │             the_agent = <puppy.agent.LLMAgent object at 0x70c82f6bde90>  │ │
+│ │    trained_agent_path = None                                             │ │
+│ ╰──────────────────────────────────────────────────────────────────────────╯ │
+│                                                                              │
+│ /home/i/ivanlee/finmem/puppy/agent.py:585 in step                            │
+│                                                                              │
+│   582 │   │   │   cur_date=cur_date, filing_q=cur_filing_q, filing_k=cur_fil │
+│   583 │   │   )                                                              │
+│   584 │   │   # 2. handling news                                             │
+│ ❱ 585 │   │   self._handling_news(cur_date=cur_date, news=cur_news)          │
+│   586 │   │   # 3. update the price to portfolio                             │
+│   587 │   │   self.portfolio.update_market_info(                             │
+│   588 │   │   │   new_market_price_info=cur_price,                           │
+│                                                                              │
+│ ╭──────────────────────────── locals ────────────────────────────╮           │
+│ │     cur_date = datetime.date(2019, 1, 2)                       │           │
+│ │ cur_filing_k = None                                            │           │
+│ │ cur_filing_q = None                                            │           │
+│ │     cur_news = ''                                              │           │
+│ │    cur_price = 185.1300506591797                               │           │
+│ │   cur_record = -3.9239501953125                                │           │
+│ │  market_info = (                                               │           │
+│ │                │   datetime.date(2019, 1, 2),                  │           │
+│ │                │   185.1300506591797,                          │           │
+│ │                │   None,                                       │           │
+│ │                │   None,                                       │           │
+│ │                │   '',                                         │           │
+│ │                │   -3.9239501953125,                           │           │
+│ │                │   False                                       │           │
+│ │                )                                               │           │
+│ │     run_mode = <RunMode.Train: 0>                              │           │
+│ │         self = <puppy.agent.LLMAgent object at 0x70c82f6bde90> │           │
+│ ╰────────────────────────────────────────────────────────────────╯           │
+│                                                                              │
+│ /home/i/ivanlee/finmem/puppy/agent.py:181 in _handling_news                  │
+│                                                                              │
+│   178 │                                                                      │
+│   179 │   def _handling_news(self, cur_date: date, news: List[str]) -> None: │
+│   180 │   │   if news != {}:                                                 │
+│ ❱ 181 │   │   │   self.brain.add_memory_short(                               │
+│   182 │   │   │   │   symbol=self.trading_symbol, date=cur_date, text=news   │
+│   183 │   │   │   )                                                          │
+│   184                                                                        │
+│                                                                              │
+│ ╭────────────────────────── locals ──────────────────────────╮               │
+│ │ cur_date = datetime.date(2019, 1, 2)                       │               │
+│ │     news = ''                                              │               │
+│ │     self = <puppy.agent.LLMAgent object at 0x70c82f6bde90> │               │
+│ ╰────────────────────────────────────────────────────────────╯               │
+│                                                                              │
+│ /home/i/ivanlee/finmem/puppy/memorydb.py:599 in add_memory_short             │
+│                                                                              │
+│   596 │   def add_memory_short(                                              │
+│   597 │   │   self, symbol: str, date: date, text: Union[List[str], str]     │
+│   598 │   ) -> None:                                                         │
+│ ❱ 599 │   │   self.short_term_memory.add_memory(symbol, date, text)          │
+│   600 │                                                                      │
+│   601 │   def add_memory_mid(                                                │
+│   602 │   │   self, symbol: str, date: date, text: Union[List[str], str]     │
+│                                                                              │
+│ ╭────────────────────────── locals ──────────────────────────╮               │
+│ │   date = datetime.date(2019, 1, 2)                         │               │
+│ │   self = <puppy.memorydb.BrainDB object at 0x70c82f177a90> │               │
+│ │ symbol = 'COST'                                            │               │
+│ │   text = ''                                                │               │
+│ ╰────────────────────────────────────────────────────────────╯               │
+│                                                                              │
+│ /home/i/ivanlee/finmem/puppy/memorydb.py:92 in add_memory                    │
+│                                                                              │
+│    89 │   │   if isinstance(text, str):                                      │
+│    90 │   │   │   text = [text]                                              │
+│    91 │   │   # get embedding                                                │
+│ ❱  92 │   │   emb = self.emb_func(text)                                      │
+│    93 │   │   faiss.normalize_L2(emb)                                        │
+│    94 │   │   ids = [self.id_generator() for _ in range(len(text))]          │
+│    95 │   │   # initialize importance score                                  │
+│                                                                              │
+│ ╭────────────────────────── locals ───────────────────────────╮              │
+│ │   date = datetime.date(2019, 1, 2)                          │              │
+│ │   self = <puppy.memorydb.MemoryDB object at 0x70c82f6a2c10> │              │
+│ │ symbol = 'COST'                                             │              │
+│ │   text = ['']                                               │              │
+│ ╰─────────────────────────────────────────────────────────────╯              │
+│                                                                              │
+│ /home/i/ivanlee/finmem/puppy/embedding.py:74 in __call__                     │
+│                                                                              │
+│   71 │   │   │   np.array: The embedding of the input text as a NumPy array. │
+│   72 │   │                                                                   │
+│   73 │   │   """                                                             │
+│ ❱ 74 │   │   return np.array(self._emb(text)).astype("float32")              │
+│   75 │                                                                       │
+│   76 │   def get_embedding_dimension(self):                                  │
+│   77 │   │   """                                                             │
+│                                                                              │
+│ ╭───────────────────────────────── locals ─────────────────────────────────╮ │
+│ │ self = <puppy.embedding.OpenAILongerThanContextEmb object at             │ │
+│ │        0x70c82f6a2c50>                                                   │ │
+│ │ text = ['']                                                              │ │
+│ ╰──────────────────────────────────────────────────────────────────────────╯ │
+│                                                                              │
+│ /home/i/ivanlee/finmem/puppy/embedding.py:58 in _emb                         │
+│                                                                              │
+│   55 │   │   """                                                             │
+│   56 │   │   if isinstance(text, str):                                       │
+│   57 │   │   │   text = [text]                                               │
+│ ❱ 58 │   │   return self.emb_model.embed_documents(texts=text, chunk_size=No │
+│   59 │                                                                       │
+│   60 │   def __call__(self, text: Union[List[str], str]) -> np.ndarray:      │
+│   61 │   │   """                                                             │
+│                                                                              │
+│ ╭───────────────────────────────── locals ─────────────────────────────────╮ │
+│ │ self = <puppy.embedding.OpenAILongerThanContextEmb object at             │ │
+│ │        0x70c82f6a2c50>                                                   │ │
+│ │ text = ['']                                                              │ │
+│ ╰──────────────────────────────────────────────────────────────────────────╯ │
+│                                                                              │
+│ /home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/langchain_communit │
+│ y/embeddings/openai.py:670 in embed_documents                                │
+│                                                                              │
+│   667 │   │   # NOTE: to keep things simple, we assume the list may contain  │
+│   668 │   │   #       than the maximum context and use length-safe embedding │
+│   669 │   │   engine = cast(str, self.deployment)                            │
+│ ❱ 670 │   │   return self._get_len_safe_embeddings(texts, engine=engine)     │
+│   671 │                                                                      │
+│   672 │   async def aembed_documents(                                        │
+│   673 │   │   self, texts: List[str], chunk_size: Optional[int] = 0          │
+│                                                                              │
+│ ╭───────────────────────────────── locals ─────────────────────────────────╮ │
+│ │ chunk_size = None                                                        │ │
+│ │     engine = 'text-embedding-ada-002'                                    │ │
+│ │       self = OpenAIEmbeddings(                                           │ │
+│ │              │   client=<openai.resources.embeddings.Embeddings object   │ │
+│ │              at 0x70c82f6a3b90>,                                         │ │
+│ │              │                                                           │ │
+│ │              async_client=<openai.resources.embeddings.AsyncEmbeddings   │ │
+│ │              object at 0x70c839739f50>,                                  │ │
+│ │              │   model='text-embedding-ada-002',                         │ │
+│ │              │   deployment='text-embedding-ada-002',                    │ │
+│ │              │   openai_api_version='',                                  │ │
+│ │              │   openai_api_base=None,                                   │ │
+│ │              │   openai_api_type='',                                     │ │
+│ │              │   openai_proxy='',                                        │ │
+│ │              │   embedding_ctx_length=8191,                              │ │
+│ │              │   openai_api_key='Enter your OpenAI API Key here',        │ │
+│ │              │   openai_organization=None,                               │ │
+│ │              │   allowed_special=set(),                                  │ │
+│ │              │   disallowed_special='all',                               │ │
+│ │              │   chunk_size=5000,                                        │ │
+│ │              │   max_retries=2,                                          │ │
+│ │              │   request_timeout=None,                                   │ │
+│ │              │   headers=None,                                           │ │
+│ │              │   tiktoken_enabled=True,                                  │ │
+│ │              │   tiktoken_model_name=None,                               │ │
+│ │              │   show_progress_bar=False,                                │ │
+│ │              │   model_kwargs={},                                        │ │
+│ │              │   skip_empty=False,                                       │ │
+│ │              │   default_headers=None,                                   │ │
+│ │              │   default_query=None,                                     │ │
+│ │              │   retry_min_seconds=4,                                    │ │
+│ │              │   retry_max_seconds=20,                                   │ │
+│ │              │   http_client=None                                        │ │
+│ │              )                                                           │ │
+│ │      texts = ['']                                                        │ │
+│ ╰──────────────────────────────────────────────────────────────────────────╯ │
+│                                                                              │
+│ /home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/langchain_communit │
+│ y/embeddings/openai.py:517 in _get_len_safe_embeddings                       │
+│                                                                              │
+│   514 │   │   for i in range(len(texts)):                                    │
+│   515 │   │   │   _result = results[i]                                       │
+│   516 │   │   │   if len(_result) == 0:                                      │
+│ ❱ 517 │   │   │   │   average_embedded = embed_with_retry(                   │
+│   518 │   │   │   │   │   self,                                              │
+│   519 │   │   │   │   │   input="",                                          │
+│   520 │   │   │   │   │   **self._invocation_params,                         │
+│                                                                              │
+│ ╭───────────────────────────────── locals ─────────────────────────────────╮ │
+│ │         _chunk_size = 5000                                               │ │
+│ │               _iter = range(0, 0, 5000)                                  │ │
+│ │             _result = []                                                 │ │
+│ │  batched_embeddings = []                                                 │ │
+│ │          chunk_size = None                                               │ │
+│ │          embeddings = [[]]                                               │ │
+│ │            encoding = <Encoding 'cl100k_base'>                           │ │
+│ │              engine = 'text-embedding-ada-002'                           │ │
+│ │                   i = 0                                                  │ │
+│ │             indices = []                                                 │ │
+│ │          model_name = 'text-embedding-ada-002'                           │ │
+│ │ num_tokens_in_batch = [[]]                                               │ │
+│ │             results = [[]]                                               │ │
+│ │                self = OpenAIEmbeddings(                                  │ │
+│ │                       │   client=<openai.resources.embeddings.Embeddings │ │
+│ │                       object at 0x70c82f6a3b90>,                         │ │
+│ │                       │                                                  │ │
+│ │                       async_client=<openai.resources.embeddings.AsyncEm… │ │
+│ │                       object at 0x70c839739f50>,                         │ │
+│ │                       │   model='text-embedding-ada-002',                │ │
+│ │                       │   deployment='text-embedding-ada-002',           │ │
+│ │                       │   openai_api_version='',                         │ │
+│ │                       │   openai_api_base=None,                          │ │
+│ │                       │   openai_api_type='',                            │ │
+│ │                       │   openai_proxy='',                               │ │
+│ │                       │   embedding_ctx_length=8191,                     │ │
+│ │                       │   openai_api_key='Enter your OpenAI API Key      │ │
+│ │                       here',                                             │ │
+│ │                       │   openai_organization=None,                      │ │
+│ │                       │   allowed_special=set(),                         │ │
+│ │                       │   disallowed_special='all',                      │ │
+│ │                       │   chunk_size=5000,                               │ │
+│ │                       │   max_retries=2,                                 │ │
+│ │                       │   request_timeout=None,                          │ │
+│ │                       │   headers=None,                                  │ │
+│ │                       │   tiktoken_enabled=True,                         │ │
+│ │                       │   tiktoken_model_name=None,                      │ │
+│ │                       │   show_progress_bar=False,                       │ │
+│ │                       │   model_kwargs={},                               │ │
+│ │                       │   skip_empty=False,                              │ │
+│ │                       │   default_headers=None,                          │ │
+│ │                       │   default_query=None,                            │ │
+│ │                       │   retry_min_seconds=4,                           │ │
+│ │                       │   retry_max_seconds=20,                          │ │
+│ │                       │   http_client=None                               │ │
+│ │                       )                                                  │ │
+│ │                text = ''                                                 │ │
+│ │               texts = ['']                                               │ │
+│ │            tiktoken = <module 'tiktoken' from                            │ │
+│ │                       '/home/i/ivanlee/finmem/.venv/lib/python3.11/site… │ │
+│ │               token = []                                                 │ │
+│ │              tokens = []                                                 │ │
+│ ╰──────────────────────────────────────────────────────────────────────────╯ │
+│                                                                              │
+│ /home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/langchain_communit │
+│ y/embeddings/openai.py:120 in embed_with_retry                               │
+│                                                                              │
+│   117 def embed_with_retry(embeddings: OpenAIEmbeddings, **kwargs: Any) -> A │
+│   118 │   """Use tenacity to retry the embedding call."""                    │
+│   119 │   if is_openai_v1():                                                 │
+│ ❱ 120 │   │   return embeddings.client.create(**kwargs)                      │
+│   121 │   retry_decorator = _create_retry_decorator(embeddings)              │
+│   122 │                                                                      │
+│   123 │   @retry_decorator                                                   │
+│                                                                              │
+│ ╭───────────────────────────────── locals ─────────────────────────────────╮ │
+│ │ embeddings = OpenAIEmbeddings(                                           │ │
+│ │              │   client=<openai.resources.embeddings.Embeddings object   │ │
+│ │              at 0x70c82f6a3b90>,                                         │ │
+│ │              │                                                           │ │
+│ │              async_client=<openai.resources.embeddings.AsyncEmbeddings   │ │
+│ │              object at 0x70c839739f50>,                                  │ │
+│ │              │   model='text-embedding-ada-002',                         │ │
+│ │              │   deployment='text-embedding-ada-002',                    │ │
+│ │              │   openai_api_version='',                                  │ │
+│ │              │   openai_api_base=None,                                   │ │
+│ │              │   openai_api_type='',                                     │ │
+│ │              │   openai_proxy='',                                        │ │
+│ │              │   embedding_ctx_length=8191,                              │ │
+│ │              │   openai_api_key='Enter your OpenAI API Key here',        │ │
+│ │              │   openai_organization=None,                               │ │
+│ │              │   allowed_special=set(),                                  │ │
+│ │              │   disallowed_special='all',                               │ │
+│ │              │   chunk_size=5000,                                        │ │
+│ │              │   max_retries=2,                                          │ │
+│ │              │   request_timeout=None,                                   │ │
+│ │              │   headers=None,                                           │ │
+│ │              │   tiktoken_enabled=True,                                  │ │
+│ │              │   tiktoken_model_name=None,                               │ │
+│ │              │   show_progress_bar=False,                                │ │
+│ │              │   model_kwargs={},                                        │ │
+│ │              │   skip_empty=False,                                       │ │
+│ │              │   default_headers=None,                                   │ │
+│ │              │   default_query=None,                                     │ │
+│ │              │   retry_min_seconds=4,                                    │ │
+│ │              │   retry_max_seconds=20,                                   │ │
+│ │              │   http_client=None                                        │ │
+│ │              )                                                           │ │
+│ │     kwargs = {'input': '', 'model': 'text-embedding-ada-002'}            │ │
+│ ╰──────────────────────────────────────────────────────────────────────────╯ │
+│                                                                              │
+│ /home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/openai/resources/e │
+│ mbeddings.py:132 in create                                                   │
+│                                                                              │
+│   129 │   │   │                                                              │
+│   130 │   │   │   return obj                                                 │
+│   131 │   │                                                                  │
+│ ❱ 132 │   │   return self._post(                                             │
+│   133 │   │   │   "/embeddings",                                             │
+│   134 │   │   │   body=maybe_transform(params, embedding_create_params.Embed │
+│   135 │   │   │   options=make_request_options(                              │
+│                                                                              │
+│ ╭───────────────────────────────── locals ─────────────────────────────────╮ │
+│ │      dimensions = <openai.Omit object at 0x70c962a9ff90>                 │ │
+│ │ encoding_format = <openai.Omit object at 0x70c962a9ff90>                 │ │
+│ │      extra_body = None                                                   │ │
+│ │   extra_headers = None                                                   │ │
+│ │     extra_query = None                                                   │ │
+│ │           input = ''                                                     │ │
+│ │           model = 'text-embedding-ada-002'                               │ │
+│ │          params = {                                                      │ │
+│ │                   │   'input': '',                                       │ │
+│ │                   │   'model': 'text-embedding-ada-002',                 │ │
+│ │                   │   'user': <openai.Omit object at 0x70c962a9ff90>,    │ │
+│ │                   │   'dimensions': <openai.Omit object at               │ │
+│ │                   0x70c962a9ff90>,                                       │ │
+│ │                   │   'encoding_format': 'base64'                        │ │
+│ │                   }                                                      │ │
+│ │            self = <openai.resources.embeddings.Embeddings object at      │ │
+│ │                   0x70c82f6a3b90>                                        │ │
+│ │         timeout = NOT_GIVEN                                              │ │
+│ │            user = <openai.Omit object at 0x70c962a9ff90>                 │ │
+│ ╰──────────────────────────────────────────────────────────────────────────╯ │
+│                                                                              │
+│ /home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/openai/_base_clien │
+│ t.py:1259 in post                                                            │
+│                                                                              │
+│   1256 │   │   opts = FinalRequestOptions.construct(                         │
+│   1257 │   │   │   method="post", url=path, json_data=body, files=to_httpx_f │
+│   1258 │   │   )                                                             │
+│ ❱ 1259 │   │   return cast(ResponseT, self.request(cast_to, opts, stream=str │
+│   1260 │                                                                     │
+│   1261 │   def patch(                                                        │
+│   1262 │   │   self,                                                         │
+│                                                                              │
+│ ╭───────────────────────────────── locals ─────────────────────────────────╮ │
+│ │       body = {                                                           │ │
+│ │              │   'input': '',                                            │ │
+│ │              │   'model': 'text-embedding-ada-002',                      │ │
+│ │              │   'encoding_format': 'base64'                             │ │
+│ │              }                                                           │ │
+│ │      files = None                                                        │ │
+│ │    options = {                                                           │ │
+│ │              │   'post_parser': <function                                │ │
+│ │              Embeddings.create.<locals>.parser at 0x70c82f162e80>        │ │
+│ │              }                                                           │ │
+│ │       opts = FinalRequestOptions(                                        │ │
+│ │              │   method='post',                                          │ │
+│ │              │   url='/embeddings',                                      │ │
+│ │              │   files=None,                                             │ │
+│ │              │   post_parser=<function Embeddings.create.<locals>.parser │ │
+│ │              at 0x70c82f162e80>,                                         │ │
+│ │              │   json_data={                                             │ │
+│ │              │   │   'input': '',                                        │ │
+│ │              │   │   'model': 'text-embedding-ada-002',                  │ │
+│ │              │   │   'encoding_format': 'base64'                         │ │
+│ │              │   },                                                      │ │
+│ │              │   params={},                                              │ │
+│ │              │   headers=NOT_GIVEN,                                      │ │
+│ │              │   max_retries=NOT_GIVEN,                                  │ │
+│ │              │   timeout=NOT_GIVEN,                                      │ │
+│ │              │   idempotency_key=None,                                   │ │
+│ │              │   follow_redirects=None,                                  │ │
+│ │              │   extra_json=None                                         │ │
+│ │              )                                                           │ │
+│ │       path = '/embeddings'                                               │ │
+│ │       self = <openai.OpenAI object at 0x70c82f971690>                    │ │
+│ │     stream = False                                                       │ │
+│ │ stream_cls = None                                                        │ │
+│ ╰──────────────────────────────────────────────────────────────────────────╯ │
+│                                                                              │
+│ /home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/openai/_base_clien │
+│ t.py:1047 in request                                                         │
+│                                                                              │
+│   1044 │   │   │   │   │   err.response.read()                               │
+│   1045 │   │   │   │                                                         │
+│   1046 │   │   │   │   log.debug("Re-raising status error")                  │
+│ ❱ 1047 │   │   │   │   raise self._make_status_error_from_response(err.respo │
+│   1048 │   │   │                                                             │
+│   1049 │   │   │   break                                                     │
+│   1050                                                                       │
+│                                                                              │
+│ ╭───────────────────────────────── locals ─────────────────────────────────╮ │
+│ │     input_options = FinalRequestOptions(                                 │ │
+│ │                     │   method='post',                                   │ │
+│ │                     │   url='/embeddings',                               │ │
+│ │                     │   files=None,                                      │ │
+│ │                     │   post_parser=<function                            │ │
+│ │                     Embeddings.create.<locals>.parser at                 │ │
+│ │                     0x70c82f162e80>,                                     │ │
+│ │                     │   json_data={                                      │ │
+│ │                     │   │   'input': '',                                 │ │
+│ │                     │   │   'model': 'text-embedding-ada-002',           │ │
+│ │                     │   │   'encoding_format': 'base64'                  │ │
+│ │                     │   },                                               │ │
+│ │                     │   params={},                                       │ │
+│ │                     │   headers=NOT_GIVEN,                               │ │
+│ │                     │   max_retries=NOT_GIVEN,                           │ │
+│ │                     │   timeout=NOT_GIVEN,                               │ │
+│ │                     │                                                    │ │
+│ │                     idempotency_key='stainless-python-retry-a12aca92-d6… │ │
+│ │                     │   follow_redirects=None,                           │ │
+│ │                     │   extra_json=None                                  │ │
+│ │                     )                                                    │ │
+│ │            kwargs = {}                                                   │ │
+│ │       max_retries = 2                                                    │ │
+│ │           options = FinalRequestOptions(                                 │ │
+│ │                     │   method='post',                                   │ │
+│ │                     │   url='/embeddings',                               │ │
+│ │                     │   files=None,                                      │ │
+│ │                     │   post_parser=<function                            │ │
+│ │                     Embeddings.create.<locals>.parser at                 │ │
+│ │                     0x70c82f162e80>,                                     │ │
+│ │                     │   json_data={                                      │ │
+│ │                     │   │   'input': '',                                 │ │
+│ │                     │   │   'model': 'text-embedding-ada-002',           │ │
+│ │                     │   │   'encoding_format': 'base64'                  │ │
+│ │                     │   },                                               │ │
+│ │                     │   params={},                                       │ │
+│ │                     │   headers=NOT_GIVEN,                               │ │
+│ │                     │   max_retries=NOT_GIVEN,                           │ │
+│ │                     │   timeout=NOT_GIVEN,                               │ │
+│ │                     │                                                    │ │
+│ │                     idempotency_key='stainless-python-retry-a12aca92-d6… │ │
+│ │                     │   follow_redirects=None,                           │ │
+│ │                     │   extra_json=None                                  │ │
+│ │                     )                                                    │ │
+│ │ remaining_retries = 2                                                    │ │
+│ │           request = <Request('POST',                                     │ │
+│ │                     'https://api.openai.com/v1/embeddings')>             │ │
+│ │          response = <Response [401 Unauthorized]>                        │ │
+│ │     retries_taken = 0                                                    │ │
+│ │              self = <openai.OpenAI object at 0x70c82f971690>             │ │
+│ │            stream = False                                                │ │
+│ │        stream_cls = None                                                 │ │
+│ ╰──────────────────────────────────────────────────────────────────────────╯ │
+╰──────────────────────────────────────────────────────────────────────────────╯
+AuthenticationError: Error code: 401 - {'error': {'message': 'Incorrect API key 
+provided: Enter yo******************here. You can find your API key at 
+https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error',
+'param': None, 'code': 'invalid_api_key'}}
+  0%|          | 0/251 [00:01<?, ?it/s]
+╭───────────────────── Traceback (most recent call last) ──────────────────────╮
+│ /home/i/ivanlee/finmem/run.py:98 in sim_func                                 │
+│                                                                              │
+│    95 │   if run_mode_var == RunMode.Train:                                  │
+│    96 │   │   the_agent = LLMAgent.from_config(config)                       │
+│    97 │   else:                                                              │
+│ ❱  98 │   │   the_agent = LLMAgent.load_checkpoint(path=os.path.join(trained │
+│    99 │   # start simulation                                                 │
+│   100 │   pbar = tqdm(total=environment.simulation_length)                   │
+│   101 │   while True:                                                        │
+│                                                                              │
+│ ╭───────────────────────────────── locals ─────────────────────────────────╮ │
+│ │       checkpoint_path = 'data/08_test_checkpoint/COST'                   │ │
+│ │                config = {                                                │ │
+│ │                         │   'chat': {                                    │ │
+│ │                         │   │   'model': 'z-ai/glm-4-32b',               │ │
+│ │                         │   │   'end_point':                             │ │
+│ │                         'https://openrouter.ai/api/v1/chat/completions', │ │
+│ │                         │   │   'system_message': 'You are a helpful     │ │
+│ │                         assistant.'                                      │ │
+│ │                         │   },                                           │ │
+│ │                         │   'general': {                                 │ │
+│ │                         │   │   'top_k': 3,                              │ │
+│ │                         │   │   'agent_name': 'agent_1',                 │ │
+│ │                         │   │   'look_back_window_size': 7,              │ │
+│ │                         │   │   'trading_symbol': 'COST',                │ │
+│ │                         │   │   'character_string': 'You accumulate a    │ │
+│ │                         lot of information of the following sectors so   │ │
+│ │                         you are especial'+196                            │ │
+│ │                         │   },                                           │ │
+│ │                         │   'agent': {                                   │ │
+│ │                         │   │   'agent_1': {                             │ │
+│ │                         │   │   │   'embedding': {                       │ │
+│ │                         │   │   │   │   'detail': {                      │ │
+│ │                         │   │   │   │   │   'embedding_model':           │ │
+│ │                         'text-embedding-ada-002',                        │ │
+│ │                         │   │   │   │   │   'chunk_size': 5000,          │ │
+│ │                         │   │   │   │   │   'verbose': False             │ │
+│ │                         │   │   │   │   }                                │ │
+│ │                         │   │   │   }                                    │ │
+│ │                         │   │   }                                        │ │
+│ │                         │   },                                           │ │
+│ │                         │   'short': {                                   │ │
+│ │                         │   │   'importance_score_initialization':       │ │
+│ │                         'sample',                                        │ │
+│ │                         │   │   'decay_params': {                        │ │
+│ │                         │   │   │   'recency_factor': 3.0,               │ │
+│ │                         │   │   │   'importance_factor': 0.92            │ │
+│ │                         │   │   },                                       │ │
+│ │                         │   │   'clean_up_threshold_dict': {             │ │
+│ │                         │   │   │   'recency_threshold': 0.05,           │ │
+│ │                         │   │   │   'importance_threshold': 5            │ │
+│ │                         │   │   },                                       │ │
+│ │                         │   │   'jump_threshold_upper': 60               │ │
+│ │                         │   },                                           │ │
+│ │                         │   'mid': {                                     │ │
+│ │                         │   │   'jump_threshold_lower': 60,              │ │
+│ │                         │   │   'jump_threshold_upper': 80,              │ │
+│ │                         │   │   'importance_score_initialization':       │ │
+│ │                         'sample',                                        │ │
+│ │                         │   │   'decay_params': {                        │ │
+│ │                         │   │   │   'recency_factor': 90.0,              │ │
+│ │                         │   │   │   'importance_factor': 0.967           │ │
+│ │                         │   │   },                                       │ │
+│ │                         │   │   'clean_up_threshold_dict': {             │ │
+│ │                         │   │   │   'recency_threshold': 0.05,           │ │
+│ │                         │   │   │   'importance_threshold': 5            │ │
+│ │                         │   │   }                                        │ │
+│ │                         │   },                                           │ │
+│ │                         │   'long': {                                    │ │
+│ │                         │   │   'jump_threshold_lower': 80,              │ │
+│ │                         │   │   'importance_score_initialization':       │ │
+│ │                         'sample',                                        │ │
+│ │                         │   │   'decay_params': {                        │ │
+│ │                         │   │   │   'recency_factor': 365.0,             │ │
+│ │                         │   │   │   'importance_factor': 0.988           │ │
+│ │                         │   │   },                                       │ │
+│ │                         │   │   'clean_up_threshold_dict': {             │ │
+│ │                         │   │   │   'recency_threshold': 0.05,           │ │
+│ │                         │   │   │   'importance_threshold': 5            │ │
+│ │                         │   │   }                                        │ │
+│ │                         │   },                                           │ │
+│ │                         │   'reflection': {                              │ │
+│ │                         │   │   'importance_score_initialization':       │ │
+│ │                         'sample',                                        │ │
+│ │                         │   │   'decay_params': {                        │ │
+│ │                         │   │   │   'recency_factor': 365.0,             │ │
+│ │                         │   │   │   'importance_factor': 0.988           │ │
+│ │                         │   │   },                                       │ │
+│ │                         │   │   'clean_up_threshold_dict': {             │ │
+│ │                         │   │   │   'recency_threshold': 0.05,           │ │
+│ │                         │   │   │   'importance_threshold': 5            │ │
+│ │                         │   │   }                                        │ │
+│ │                         │   }                                            │ │
+│ │                         }                                                │ │
+│ │           config_path = 'config/generated_configs/COST_config.toml'      │ │
+│ │              end_time = '2024-12-31'                                     │ │
+│ │          env_data_pkl = {                                                │ │
+│ │                         │   datetime.date(2019, 1, 2): {                 │ │
+│ │                         │   │   'price': {'COST': 185.1300506591797},    │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 3): {                 │ │
+│ │                         │   │   'price': {'COST': 181.2061004638672},    │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 4): {                 │ │
+│ │                         │   │   'price': {'COST': 186.46817016601562},   │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 7): {                 │ │
+│ │                         │   │   'price': {'COST': 187.15524291992188},   │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 8): {                 │ │
+│ │                         │   │   'price': {'COST': 188.55667114257812},   │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 9): {                 │ │
+│ │                         │   │   'price': {'COST': 189.77725219726562},   │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 10): {                │ │
+│ │                         │   │   'price': {'COST': 190.44631958007812},   │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 11): {                │ │
+│ │                         │   │   'price': {'COST': 190.3287811279297},    │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 14): {                │ │
+│ │                         │   │   'price': {'COST': 188.96356201171875},   │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 15): {                │ │
+│ │                         │   │   'price': {'COST': 190.79898071289062},   │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   ... +1500                                    │ │
+│ │                         }                                                │ │
+│ │           environment = <puppy.environment.MarketEnvironment object at   │ │
+│ │                         0x7c2d8c3debd0>                                  │ │
+│ │                     f = <_io.BufferedReader                              │ │
+│ │                         name='data/03_model_input/env_data_COST.pkl'>    │ │
+│ │          file_handler = <FileHandler                                     │ │
+│ │                         /home/i/ivanlee/finmem/data/04_model_output_log… │ │
+│ │                         (NOTSET)>                                        │ │
+│ │                logger = <Logger __main__ (INFO)>                         │ │
+│ │     logging_formatter = <logging.Formatter object at 0x7c2d8c4bffd0>     │ │
+│ │ market_data_info_path = 'data/03_model_input/env_data_COST.pkl'          │ │
+│ │           result_path = 'data/07_test_model_output/COST'                 │ │
+│ │              run_mode = 'test'                                           │ │
+│ │          run_mode_var = <RunMode.Test: 1>                                │ │
+│ │            start_time = '2020-01-01'                                     │ │
+│ │    trained_agent_path = 'data/06_train_checkpoint/COST'                  │ │
+│ ╰──────────────────────────────────────────────────────────────────────────╯ │
+│                                                                              │
+│ /home/i/ivanlee/finmem/puppy/agent.py:639 in load_checkpoint                 │
+│                                                                              │
+│   636 │   @classmethod                                                       │
+│   637 │   def load_checkpoint(cls, path: str) -> "LLMAgent":                 │
+│   638 │   │   # load state dict                                              │
+│ ❱ 639 │   │   with open(os.path.join(path, "state_dict.pkl"), "rb") as f:    │
+│   640 │   │   │   state_dict = pickle.load(f)                                │
+│   641 │   │   # load brain                                                   │
+│   642 │   │   brain = BrainDB.load_checkpoint(path=os.path.join(path, "brain │
+│                                                                              │
+│ ╭──────────────────── locals ────────────────────╮                           │
+│ │ path = 'data/06_train_checkpoint/COST/agent_1' │                           │
+│ ╰────────────────────────────────────────────────╯                           │
+╰──────────────────────────────────────────────────────────────────────────────╯
+FileNotFoundError: [Errno 2] No such file or directory: 
+'data/06_train_checkpoint/COST/agent_1/state_dict.pkl'

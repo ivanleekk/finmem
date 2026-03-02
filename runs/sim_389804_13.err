@@ -1,0 +1,794 @@
+  0%|          | 0/252 [00:00<?, ?it/s]╭───────────────────── Traceback (most recent call last) ──────────────────────╮
+│ /home/i/ivanlee/finmem/run.py:104 in sim_func                                │
+│                                                                              │
+│   101 │   while True:                                                        │
+│   102 │   │   logger.info(f"Step {the_agent.counter}")                       │
+│   103 │   │   the_agent.counter += 1                                         │
+│ ❱ 104 │   │   market_info = environment.step()                               │
+│   105 │   │   logger.info(f"Date {market_info[0]}")                          │
+│   106 │   │   logger.info(f"Record {market_info[-2]}")                       │
+│   107 │   │   if market_info[-1]:  # if done break                           │
+│                                                                              │
+│ ╭───────────────────────────────── locals ─────────────────────────────────╮ │
+│ │       checkpoint_path = 'data/06_train_checkpoint/RR_L'                  │ │
+│ │                config = {                                                │ │
+│ │                         │   'chat': {                                    │ │
+│ │                         │   │   'model': 'z-ai/glm-4-32b',               │ │
+│ │                         │   │   'end_point':                             │ │
+│ │                         'https://openrouter.ai/api/v1/chat/completions', │ │
+│ │                         │   │   'system_message': 'You are a helpful     │ │
+│ │                         assistant.'                                      │ │
+│ │                         │   },                                           │ │
+│ │                         │   'general': {                                 │ │
+│ │                         │   │   'top_k': 3,                              │ │
+│ │                         │   │   'agent_name': 'agent_1',                 │ │
+│ │                         │   │   'look_back_window_size': 7,              │ │
+│ │                         │   │   'trading_symbol': 'RR_L',                │ │
+│ │                         │   │   'character_string': 'You accumulate a    │ │
+│ │                         lot of information of the following sectors so   │ │
+│ │                         you are especial'+171                            │ │
+│ │                         │   },                                           │ │
+│ │                         │   'agent': {                                   │ │
+│ │                         │   │   'agent_1': {                             │ │
+│ │                         │   │   │   'embedding': {                       │ │
+│ │                         │   │   │   │   'detail': {                      │ │
+│ │                         │   │   │   │   │   'embedding_model':           │ │
+│ │                         'text-embedding-ada-002',                        │ │
+│ │                         │   │   │   │   │   'chunk_size': 5000,          │ │
+│ │                         │   │   │   │   │   'verbose': False             │ │
+│ │                         │   │   │   │   }                                │ │
+│ │                         │   │   │   }                                    │ │
+│ │                         │   │   }                                        │ │
+│ │                         │   },                                           │ │
+│ │                         │   'short': {                                   │ │
+│ │                         │   │   'importance_score_initialization':       │ │
+│ │                         'sample',                                        │ │
+│ │                         │   │   'decay_params': {                        │ │
+│ │                         │   │   │   'recency_factor': 3.0,               │ │
+│ │                         │   │   │   'importance_factor': 0.92            │ │
+│ │                         │   │   },                                       │ │
+│ │                         │   │   'clean_up_threshold_dict': {             │ │
+│ │                         │   │   │   'recency_threshold': 0.05,           │ │
+│ │                         │   │   │   'importance_threshold': 5            │ │
+│ │                         │   │   },                                       │ │
+│ │                         │   │   'jump_threshold_upper': 60               │ │
+│ │                         │   },                                           │ │
+│ │                         │   'mid': {                                     │ │
+│ │                         │   │   'jump_threshold_lower': 60,              │ │
+│ │                         │   │   'jump_threshold_upper': 80,              │ │
+│ │                         │   │   'importance_score_initialization':       │ │
+│ │                         'sample',                                        │ │
+│ │                         │   │   'decay_params': {                        │ │
+│ │                         │   │   │   'recency_factor': 90.0,              │ │
+│ │                         │   │   │   'importance_factor': 0.967           │ │
+│ │                         │   │   },                                       │ │
+│ │                         │   │   'clean_up_threshold_dict': {             │ │
+│ │                         │   │   │   'recency_threshold': 0.05,           │ │
+│ │                         │   │   │   'importance_threshold': 5            │ │
+│ │                         │   │   }                                        │ │
+│ │                         │   },                                           │ │
+│ │                         │   'long': {                                    │ │
+│ │                         │   │   'jump_threshold_lower': 80,              │ │
+│ │                         │   │   'importance_score_initialization':       │ │
+│ │                         'sample',                                        │ │
+│ │                         │   │   'decay_params': {                        │ │
+│ │                         │   │   │   'recency_factor': 365.0,             │ │
+│ │                         │   │   │   'importance_factor': 0.988           │ │
+│ │                         │   │   },                                       │ │
+│ │                         │   │   'clean_up_threshold_dict': {             │ │
+│ │                         │   │   │   'recency_threshold': 0.05,           │ │
+│ │                         │   │   │   'importance_threshold': 5            │ │
+│ │                         │   │   }                                        │ │
+│ │                         │   },                                           │ │
+│ │                         │   'reflection': {                              │ │
+│ │                         │   │   'importance_score_initialization':       │ │
+│ │                         'sample',                                        │ │
+│ │                         │   │   'decay_params': {                        │ │
+│ │                         │   │   │   'recency_factor': 365.0,             │ │
+│ │                         │   │   │   'importance_factor': 0.988           │ │
+│ │                         │   │   },                                       │ │
+│ │                         │   │   'clean_up_threshold_dict': {             │ │
+│ │                         │   │   │   'recency_threshold': 0.05,           │ │
+│ │                         │   │   │   'importance_threshold': 5            │ │
+│ │                         │   │   }                                        │ │
+│ │                         │   }                                            │ │
+│ │                         }                                                │ │
+│ │           config_path = 'config/generated_configs/RR_L_config.toml'      │ │
+│ │              end_time = '2019-12-31'                                     │ │
+│ │          env_data_pkl = {                                                │ │
+│ │                         │   datetime.date(2019, 1, 2): {                 │ │
+│ │                         │   │   'price': {'RR.L': 277.6868591308594},    │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 3): {                 │ │
+│ │                         │   │   'price': {'RR.L': 270.41357421875},      │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 4): {                 │ │
+│ │                         │   │   'price': {'RR.L': 283.3132629394531},    │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 7): {                 │ │
+│ │                         │   │   'price': {'RR.L': 277.7554016113281},    │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 8): {                 │ │
+│ │                         │   │   'price': {'RR.L': 291.6157531738281},    │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 9): {                 │ │
+│ │                         │   │   'price': {'RR.L': 296.6932678222656},    │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 10): {                │ │
+│ │                         │   │   'price': {'RR.L': 294.97796630859375},   │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 11): {                │ │
+│ │                         │   │   'price': {'RR.L': 298.82037353515625},   │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 14): {                │ │
+│ │                         │   │   'price': {'RR.L': 296.2130126953125},    │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 15): {                │ │
+│ │                         │   │   'price': {'RR.L': 303.9665832519531},    │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   ... +1504                                    │ │
+│ │                         }                                                │ │
+│ │           environment = <puppy.environment.MarketEnvironment object at   │ │
+│ │                         0x71d8494dab50>                                  │ │
+│ │                     f = <_io.BufferedReader                              │ │
+│ │                         name='data/03_model_input/env_data_RR_L.pkl'>    │ │
+│ │          file_handler = <FileHandler                                     │ │
+│ │                         /home/i/ivanlee/finmem/data/04_model_output_log… │ │
+│ │                         (NOTSET)>                                        │ │
+│ │                logger = <Logger __main__ (INFO)>                         │ │
+│ │     logging_formatter = <logging.Formatter object at 0x71d8497b2f10>     │ │
+│ │ market_data_info_path = 'data/03_model_input/env_data_RR_L.pkl'          │ │
+│ │                  pbar = <tqdm.std.tqdm object at 0x71d8494f6550>         │ │
+│ │           result_path = 'data/05_train_model_output/RR_L'                │ │
+│ │              run_mode = 'train'                                          │ │
+│ │          run_mode_var = <RunMode.Train: 0>                               │ │
+│ │            start_time = '2019-01-01'                                     │ │
+│ │             the_agent = <puppy.agent.LLMAgent object at 0x71d8494f68d0>  │ │
+│ │    trained_agent_path = None                                             │ │
+│ ╰──────────────────────────────────────────────────────────────────────────╯ │
+│                                                                              │
+│ /home/i/ivanlee/finmem/puppy/environment.py:104 in step                      │
+│                                                                              │
+│   101 │   │                                                                  │
+│   102 │   │   return (                                                       │
+│   103 │   │   │   cur_date,                                                  │
+│ ❱ 104 │   │   │   cur_price[self.symbol],                                    │
+│   105 │   │   │   cur_filing_k,                                              │
+│   106 │   │   │   cur_filing_q,                                              │
+│   107 │   │   │   cur_news[self.symbol],                                     │
+│                                                                              │
+│ ╭───────────────────────────────── locals ─────────────────────────────────╮ │
+│ │     cur_date = datetime.date(2019, 1, 2)                                 │ │
+│ │ cur_filing_k = None                                                      │ │
+│ │ cur_filing_q = None                                                      │ │
+│ │     cur_news = {'RR_L': ''}                                              │ │
+│ │    cur_price = {'RR.L': 277.6868591308594}                               │ │
+│ │   cur_record = {'RR.L': -7.273284912109375}                              │ │
+│ │  future_date = datetime.date(2019, 1, 3)                                 │ │
+│ │ future_price = {'RR.L': 270.41357421875}                                 │ │
+│ │         self = <puppy.environment.MarketEnvironment object at            │ │
+│ │                0x71d8494dab50>                                           │ │
+│ ╰──────────────────────────────────────────────────────────────────────────╯ │
+╰──────────────────────────────────────────────────────────────────────────────╯
+KeyError: 'RR_L'
+  0%|          | 0/252 [00:00<?, ?it/s]
+╭───────────────────── Traceback (most recent call last) ──────────────────────╮
+│ /home/i/ivanlee/finmem/run.py:98 in sim_func                                 │
+│                                                                              │
+│    95 │   if run_mode_var == RunMode.Train:                                  │
+│    96 │   │   the_agent = LLMAgent.from_config(config)                       │
+│    97 │   else:                                                              │
+│ ❱  98 │   │   the_agent = LLMAgent.load_checkpoint(path=os.path.join(trained │
+│    99 │   # start simulation                                                 │
+│   100 │   pbar = tqdm(total=environment.simulation_length)                   │
+│   101 │   while True:                                                        │
+│                                                                              │
+│ ╭───────────────────────────────── locals ─────────────────────────────────╮ │
+│ │       checkpoint_path = 'data/08_test_checkpoint/RR_L'                   │ │
+│ │                config = {                                                │ │
+│ │                         │   'chat': {                                    │ │
+│ │                         │   │   'model': 'z-ai/glm-4-32b',               │ │
+│ │                         │   │   'end_point':                             │ │
+│ │                         'https://openrouter.ai/api/v1/chat/completions', │ │
+│ │                         │   │   'system_message': 'You are a helpful     │ │
+│ │                         assistant.'                                      │ │
+│ │                         │   },                                           │ │
+│ │                         │   'general': {                                 │ │
+│ │                         │   │   'top_k': 3,                              │ │
+│ │                         │   │   'agent_name': 'agent_1',                 │ │
+│ │                         │   │   'look_back_window_size': 7,              │ │
+│ │                         │   │   'trading_symbol': 'RR_L',                │ │
+│ │                         │   │   'character_string': 'You accumulate a    │ │
+│ │                         lot of information of the following sectors so   │ │
+│ │                         you are especial'+171                            │ │
+│ │                         │   },                                           │ │
+│ │                         │   'agent': {                                   │ │
+│ │                         │   │   'agent_1': {                             │ │
+│ │                         │   │   │   'embedding': {                       │ │
+│ │                         │   │   │   │   'detail': {                      │ │
+│ │                         │   │   │   │   │   'embedding_model':           │ │
+│ │                         'text-embedding-ada-002',                        │ │
+│ │                         │   │   │   │   │   'chunk_size': 5000,          │ │
+│ │                         │   │   │   │   │   'verbose': False             │ │
+│ │                         │   │   │   │   }                                │ │
+│ │                         │   │   │   }                                    │ │
+│ │                         │   │   }                                        │ │
+│ │                         │   },                                           │ │
+│ │                         │   'short': {                                   │ │
+│ │                         │   │   'importance_score_initialization':       │ │
+│ │                         'sample',                                        │ │
+│ │                         │   │   'decay_params': {                        │ │
+│ │                         │   │   │   'recency_factor': 3.0,               │ │
+│ │                         │   │   │   'importance_factor': 0.92            │ │
+│ │                         │   │   },                                       │ │
+│ │                         │   │   'clean_up_threshold_dict': {             │ │
+│ │                         │   │   │   'recency_threshold': 0.05,           │ │
+│ │                         │   │   │   'importance_threshold': 5            │ │
+│ │                         │   │   },                                       │ │
+│ │                         │   │   'jump_threshold_upper': 60               │ │
+│ │                         │   },                                           │ │
+│ │                         │   'mid': {                                     │ │
+│ │                         │   │   'jump_threshold_lower': 60,              │ │
+│ │                         │   │   'jump_threshold_upper': 80,              │ │
+│ │                         │   │   'importance_score_initialization':       │ │
+│ │                         'sample',                                        │ │
+│ │                         │   │   'decay_params': {                        │ │
+│ │                         │   │   │   'recency_factor': 90.0,              │ │
+│ │                         │   │   │   'importance_factor': 0.967           │ │
+│ │                         │   │   },                                       │ │
+│ │                         │   │   'clean_up_threshold_dict': {             │ │
+│ │                         │   │   │   'recency_threshold': 0.05,           │ │
+│ │                         │   │   │   'importance_threshold': 5            │ │
+│ │                         │   │   }                                        │ │
+│ │                         │   },                                           │ │
+│ │                         │   'long': {                                    │ │
+│ │                         │   │   'jump_threshold_lower': 80,              │ │
+│ │                         │   │   'importance_score_initialization':       │ │
+│ │                         'sample',                                        │ │
+│ │                         │   │   'decay_params': {                        │ │
+│ │                         │   │   │   'recency_factor': 365.0,             │ │
+│ │                         │   │   │   'importance_factor': 0.988           │ │
+│ │                         │   │   },                                       │ │
+│ │                         │   │   'clean_up_threshold_dict': {             │ │
+│ │                         │   │   │   'recency_threshold': 0.05,           │ │
+│ │                         │   │   │   'importance_threshold': 5            │ │
+│ │                         │   │   }                                        │ │
+│ │                         │   },                                           │ │
+│ │                         │   'reflection': {                              │ │
+│ │                         │   │   'importance_score_initialization':       │ │
+│ │                         'sample',                                        │ │
+│ │                         │   │   'decay_params': {                        │ │
+│ │                         │   │   │   'recency_factor': 365.0,             │ │
+│ │                         │   │   │   'importance_factor': 0.988           │ │
+│ │                         │   │   },                                       │ │
+│ │                         │   │   'clean_up_threshold_dict': {             │ │
+│ │                         │   │   │   'recency_threshold': 0.05,           │ │
+│ │                         │   │   │   'importance_threshold': 5            │ │
+│ │                         │   │   }                                        │ │
+│ │                         │   }                                            │ │
+│ │                         }                                                │ │
+│ │           config_path = 'config/generated_configs/RR_L_config.toml'      │ │
+│ │              end_time = '2024-12-31'                                     │ │
+│ │          env_data_pkl = {                                                │ │
+│ │                         │   datetime.date(2019, 1, 2): {                 │ │
+│ │                         │   │   'price': {'RR.L': 277.6868591308594},    │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 3): {                 │ │
+│ │                         │   │   'price': {'RR.L': 270.41357421875},      │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 4): {                 │ │
+│ │                         │   │   'price': {'RR.L': 283.3132629394531},    │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 7): {                 │ │
+│ │                         │   │   'price': {'RR.L': 277.7554016113281},    │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 8): {                 │ │
+│ │                         │   │   'price': {'RR.L': 291.6157531738281},    │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 9): {                 │ │
+│ │                         │   │   'price': {'RR.L': 296.6932678222656},    │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 10): {                │ │
+│ │                         │   │   'price': {'RR.L': 294.97796630859375},   │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 11): {                │ │
+│ │                         │   │   'price': {'RR.L': 298.82037353515625},   │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 14): {                │ │
+│ │                         │   │   'price': {'RR.L': 296.2130126953125},    │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 15): {                │ │
+│ │                         │   │   'price': {'RR.L': 303.9665832519531},    │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   ... +1504                                    │ │
+│ │                         }                                                │ │
+│ │           environment = <puppy.environment.MarketEnvironment object at   │ │
+│ │                         0x797fddcab110>                                  │ │
+│ │                     f = <_io.BufferedReader                              │ │
+│ │                         name='data/03_model_input/env_data_RR_L.pkl'>    │ │
+│ │          file_handler = <FileHandler                                     │ │
+│ │                         /home/i/ivanlee/finmem/data/04_model_output_log… │ │
+│ │                         (NOTSET)>                                        │ │
+│ │                logger = <Logger __main__ (INFO)>                         │ │
+│ │     logging_formatter = <logging.Formatter object at 0x797fddd8ff90>     │ │
+│ │ market_data_info_path = 'data/03_model_input/env_data_RR_L.pkl'          │ │
+│ │           result_path = 'data/07_test_model_output/RR_L'                 │ │
+│ │              run_mode = 'test'                                           │ │
+│ │          run_mode_var = <RunMode.Test: 1>                                │ │
+│ │            start_time = '2020-01-01'                                     │ │
+│ │    trained_agent_path = 'data/06_train_checkpoint/RR_L'                  │ │
+│ ╰──────────────────────────────────────────────────────────────────────────╯ │
+│                                                                              │
+│ /home/i/ivanlee/finmem/puppy/agent.py:639 in load_checkpoint                 │
+│                                                                              │
+│   636 │   @classmethod                                                       │
+│   637 │   def load_checkpoint(cls, path: str) -> "LLMAgent":                 │
+│   638 │   │   # load state dict                                              │
+│ ❱ 639 │   │   with open(os.path.join(path, "state_dict.pkl"), "rb") as f:    │
+│   640 │   │   │   state_dict = pickle.load(f)                                │
+│   641 │   │   # load brain                                                   │
+│   642 │   │   brain = BrainDB.load_checkpoint(path=os.path.join(path, "brain │
+│                                                                              │
+│ ╭──────────────────── locals ────────────────────╮                           │
+│ │ path = 'data/06_train_checkpoint/RR_L/agent_1' │                           │
+│ ╰────────────────────────────────────────────────╯                           │
+╰──────────────────────────────────────────────────────────────────────────────╯
+FileNotFoundError: [Errno 2] No such file or directory: 
+'data/06_train_checkpoint/RR_L/agent_1/state_dict.pkl'
+  0%|          | 0/252 [00:00<?, ?it/s]╭───────────────────── Traceback (most recent call last) ──────────────────────╮
+│ /home/i/ivanlee/finmem/run.py:104 in sim_func                                │
+│                                                                              │
+│   101 │   while True:                                                        │
+│   102 │   │   logger.info(f"Step {the_agent.counter}")                       │
+│   103 │   │   the_agent.counter += 1                                         │
+│ ❱ 104 │   │   market_info = environment.step()                               │
+│   105 │   │   logger.info(f"Date {market_info[0]}")                          │
+│   106 │   │   logger.info(f"Record {market_info[-2]}")                       │
+│   107 │   │   if market_info[-1]:  # if done break                           │
+│                                                                              │
+│ ╭───────────────────────────────── locals ─────────────────────────────────╮ │
+│ │       checkpoint_path = 'data/06_train_checkpoint/SHEL_L'                │ │
+│ │                config = {                                                │ │
+│ │                         │   'chat': {                                    │ │
+│ │                         │   │   'model': 'z-ai/glm-4-32b',               │ │
+│ │                         │   │   'end_point':                             │ │
+│ │                         'https://openrouter.ai/api/v1/chat/completions', │ │
+│ │                         │   │   'system_message': 'You are a helpful     │ │
+│ │                         assistant.'                                      │ │
+│ │                         │   },                                           │ │
+│ │                         │   'general': {                                 │ │
+│ │                         │   │   'top_k': 3,                              │ │
+│ │                         │   │   'agent_name': 'agent_1',                 │ │
+│ │                         │   │   'look_back_window_size': 7,              │ │
+│ │                         │   │   'trading_symbol': 'SHEL_L',              │ │
+│ │                         │   │   'character_string': 'You accumulate a    │ │
+│ │                         lot of information of the following sectors so   │ │
+│ │                         you are especial'+181                            │ │
+│ │                         │   },                                           │ │
+│ │                         │   'agent': {                                   │ │
+│ │                         │   │   'agent_1': {                             │ │
+│ │                         │   │   │   'embedding': {                       │ │
+│ │                         │   │   │   │   'detail': {                      │ │
+│ │                         │   │   │   │   │   'embedding_model':           │ │
+│ │                         'text-embedding-ada-002',                        │ │
+│ │                         │   │   │   │   │   'chunk_size': 5000,          │ │
+│ │                         │   │   │   │   │   'verbose': False             │ │
+│ │                         │   │   │   │   }                                │ │
+│ │                         │   │   │   }                                    │ │
+│ │                         │   │   }                                        │ │
+│ │                         │   },                                           │ │
+│ │                         │   'short': {                                   │ │
+│ │                         │   │   'importance_score_initialization':       │ │
+│ │                         'sample',                                        │ │
+│ │                         │   │   'decay_params': {                        │ │
+│ │                         │   │   │   'recency_factor': 3.0,               │ │
+│ │                         │   │   │   'importance_factor': 0.92            │ │
+│ │                         │   │   },                                       │ │
+│ │                         │   │   'clean_up_threshold_dict': {             │ │
+│ │                         │   │   │   'recency_threshold': 0.05,           │ │
+│ │                         │   │   │   'importance_threshold': 5            │ │
+│ │                         │   │   },                                       │ │
+│ │                         │   │   'jump_threshold_upper': 60               │ │
+│ │                         │   },                                           │ │
+│ │                         │   'mid': {                                     │ │
+│ │                         │   │   'jump_threshold_lower': 60,              │ │
+│ │                         │   │   'jump_threshold_upper': 80,              │ │
+│ │                         │   │   'importance_score_initialization':       │ │
+│ │                         'sample',                                        │ │
+│ │                         │   │   'decay_params': {                        │ │
+│ │                         │   │   │   'recency_factor': 90.0,              │ │
+│ │                         │   │   │   'importance_factor': 0.967           │ │
+│ │                         │   │   },                                       │ │
+│ │                         │   │   'clean_up_threshold_dict': {             │ │
+│ │                         │   │   │   'recency_threshold': 0.05,           │ │
+│ │                         │   │   │   'importance_threshold': 5            │ │
+│ │                         │   │   }                                        │ │
+│ │                         │   },                                           │ │
+│ │                         │   'long': {                                    │ │
+│ │                         │   │   'jump_threshold_lower': 80,              │ │
+│ │                         │   │   'importance_score_initialization':       │ │
+│ │                         'sample',                                        │ │
+│ │                         │   │   'decay_params': {                        │ │
+│ │                         │   │   │   'recency_factor': 365.0,             │ │
+│ │                         │   │   │   'importance_factor': 0.988           │ │
+│ │                         │   │   },                                       │ │
+│ │                         │   │   'clean_up_threshold_dict': {             │ │
+│ │                         │   │   │   'recency_threshold': 0.05,           │ │
+│ │                         │   │   │   'importance_threshold': 5            │ │
+│ │                         │   │   }                                        │ │
+│ │                         │   },                                           │ │
+│ │                         │   'reflection': {                              │ │
+│ │                         │   │   'importance_score_initialization':       │ │
+│ │                         'sample',                                        │ │
+│ │                         │   │   'decay_params': {                        │ │
+│ │                         │   │   │   'recency_factor': 365.0,             │ │
+│ │                         │   │   │   'importance_factor': 0.988           │ │
+│ │                         │   │   },                                       │ │
+│ │                         │   │   'clean_up_threshold_dict': {             │ │
+│ │                         │   │   │   'recency_threshold': 0.05,           │ │
+│ │                         │   │   │   'importance_threshold': 5            │ │
+│ │                         │   │   }                                        │ │
+│ │                         │   }                                            │ │
+│ │                         }                                                │ │
+│ │           config_path = 'config/generated_configs/SHEL_L_config.toml'    │ │
+│ │              end_time = '2019-12-31'                                     │ │
+│ │          env_data_pkl = {                                                │ │
+│ │                         │   datetime.date(2019, 1, 2): {                 │ │
+│ │                         │   │   'price': {'SHEL.L': 2333.089111328125},  │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 3): {                 │ │
+│ │                         │   │   'price': {'SHEL.L': 2334.085205078125},  │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 4): {                 │ │
+│ │                         │   │   'price': {'SHEL.L': 2360.50146484375},   │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 7): {                 │ │
+│ │                         │   │   'price': {'SHEL.L': 2360.50146484375},   │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 8): {                 │ │
+│ │                         │   │   'price': {'SHEL.L': 2351.531005859375},  │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 9): {                 │ │
+│ │                         │   │   'price': {'SHEL.L': 2367.97802734375},   │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 10): {                │ │
+│ │                         │   │   'price': {'SHEL.L': 2384.425537109375},  │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 11): {                │ │
+│ │                         │   │   'price': {'SHEL.L': 2354.0224609375},    │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 14): {                │ │
+│ │                         │   │   'price': {'SHEL.L': 2337.574462890625},  │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 15): {                │ │
+│ │                         │   │   'price': {'SHEL.L': 2359.5048828125},    │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   ... +1504                                    │ │
+│ │                         }                                                │ │
+│ │           environment = <puppy.environment.MarketEnvironment object at   │ │
+│ │                         0x78a5589eb310>                                  │ │
+│ │                     f = <_io.BufferedReader                              │ │
+│ │                         name='data/03_model_input/env_data_SHEL_L.pkl'>  │ │
+│ │          file_handler = <FileHandler                                     │ │
+│ │                         /home/i/ivanlee/finmem/data/04_model_output_log… │ │
+│ │                         (NOTSET)>                                        │ │
+│ │                logger = <Logger __main__ (INFO)>                         │ │
+│ │     logging_formatter = <logging.Formatter object at 0x78a558acbcd0>     │ │
+│ │ market_data_info_path = 'data/03_model_input/env_data_SHEL_L.pkl'        │ │
+│ │                  pbar = <tqdm.std.tqdm object at 0x78a5588fad90>         │ │
+│ │           result_path = 'data/05_train_model_output/SHEL_L'              │ │
+│ │              run_mode = 'train'                                          │ │
+│ │          run_mode_var = <RunMode.Train: 0>                               │ │
+│ │            start_time = '2019-01-01'                                     │ │
+│ │             the_agent = <puppy.agent.LLMAgent object at 0x78a558868ad0>  │ │
+│ │    trained_agent_path = None                                             │ │
+│ ╰──────────────────────────────────────────────────────────────────────────╯ │
+│                                                                              │
+│ /home/i/ivanlee/finmem/puppy/environment.py:104 in step                      │
+│                                                                              │
+│   101 │   │                                                                  │
+│   102 │   │   return (                                                       │
+│   103 │   │   │   cur_date,                                                  │
+│ ❱ 104 │   │   │   cur_price[self.symbol],                                    │
+│   105 │   │   │   cur_filing_k,                                              │
+│   106 │   │   │   cur_filing_q,                                              │
+│   107 │   │   │   cur_news[self.symbol],                                     │
+│                                                                              │
+│ ╭───────────────────────────────── locals ─────────────────────────────────╮ │
+│ │     cur_date = datetime.date(2019, 1, 2)                                 │ │
+│ │ cur_filing_k = None                                                      │ │
+│ │ cur_filing_q = None                                                      │ │
+│ │     cur_news = {'SHEL_L': ''}                                            │ │
+│ │    cur_price = {'SHEL.L': 2333.089111328125}                             │ │
+│ │   cur_record = {'SHEL.L': 0.99609375}                                    │ │
+│ │  future_date = datetime.date(2019, 1, 3)                                 │ │
+│ │ future_price = {'SHEL.L': 2334.085205078125}                             │ │
+│ │         self = <puppy.environment.MarketEnvironment object at            │ │
+│ │                0x78a5589eb310>                                           │ │
+│ ╰──────────────────────────────────────────────────────────────────────────╯ │
+╰──────────────────────────────────────────────────────────────────────────────╯
+KeyError: 'SHEL_L'
+  0%|          | 0/252 [00:00<?, ?it/s]
+╭───────────────────── Traceback (most recent call last) ──────────────────────╮
+│ /home/i/ivanlee/finmem/run.py:98 in sim_func                                 │
+│                                                                              │
+│    95 │   if run_mode_var == RunMode.Train:                                  │
+│    96 │   │   the_agent = LLMAgent.from_config(config)                       │
+│    97 │   else:                                                              │
+│ ❱  98 │   │   the_agent = LLMAgent.load_checkpoint(path=os.path.join(trained │
+│    99 │   # start simulation                                                 │
+│   100 │   pbar = tqdm(total=environment.simulation_length)                   │
+│   101 │   while True:                                                        │
+│                                                                              │
+│ ╭───────────────────────────────── locals ─────────────────────────────────╮ │
+│ │       checkpoint_path = 'data/08_test_checkpoint/SHEL_L'                 │ │
+│ │                config = {                                                │ │
+│ │                         │   'chat': {                                    │ │
+│ │                         │   │   'model': 'z-ai/glm-4-32b',               │ │
+│ │                         │   │   'end_point':                             │ │
+│ │                         'https://openrouter.ai/api/v1/chat/completions', │ │
+│ │                         │   │   'system_message': 'You are a helpful     │ │
+│ │                         assistant.'                                      │ │
+│ │                         │   },                                           │ │
+│ │                         │   'general': {                                 │ │
+│ │                         │   │   'top_k': 3,                              │ │
+│ │                         │   │   'agent_name': 'agent_1',                 │ │
+│ │                         │   │   'look_back_window_size': 7,              │ │
+│ │                         │   │   'trading_symbol': 'SHEL_L',              │ │
+│ │                         │   │   'character_string': 'You accumulate a    │ │
+│ │                         lot of information of the following sectors so   │ │
+│ │                         you are especial'+181                            │ │
+│ │                         │   },                                           │ │
+│ │                         │   'agent': {                                   │ │
+│ │                         │   │   'agent_1': {                             │ │
+│ │                         │   │   │   'embedding': {                       │ │
+│ │                         │   │   │   │   'detail': {                      │ │
+│ │                         │   │   │   │   │   'embedding_model':           │ │
+│ │                         'text-embedding-ada-002',                        │ │
+│ │                         │   │   │   │   │   'chunk_size': 5000,          │ │
+│ │                         │   │   │   │   │   'verbose': False             │ │
+│ │                         │   │   │   │   }                                │ │
+│ │                         │   │   │   }                                    │ │
+│ │                         │   │   }                                        │ │
+│ │                         │   },                                           │ │
+│ │                         │   'short': {                                   │ │
+│ │                         │   │   'importance_score_initialization':       │ │
+│ │                         'sample',                                        │ │
+│ │                         │   │   'decay_params': {                        │ │
+│ │                         │   │   │   'recency_factor': 3.0,               │ │
+│ │                         │   │   │   'importance_factor': 0.92            │ │
+│ │                         │   │   },                                       │ │
+│ │                         │   │   'clean_up_threshold_dict': {             │ │
+│ │                         │   │   │   'recency_threshold': 0.05,           │ │
+│ │                         │   │   │   'importance_threshold': 5            │ │
+│ │                         │   │   },                                       │ │
+│ │                         │   │   'jump_threshold_upper': 60               │ │
+│ │                         │   },                                           │ │
+│ │                         │   'mid': {                                     │ │
+│ │                         │   │   'jump_threshold_lower': 60,              │ │
+│ │                         │   │   'jump_threshold_upper': 80,              │ │
+│ │                         │   │   'importance_score_initialization':       │ │
+│ │                         'sample',                                        │ │
+│ │                         │   │   'decay_params': {                        │ │
+│ │                         │   │   │   'recency_factor': 90.0,              │ │
+│ │                         │   │   │   'importance_factor': 0.967           │ │
+│ │                         │   │   },                                       │ │
+│ │                         │   │   'clean_up_threshold_dict': {             │ │
+│ │                         │   │   │   'recency_threshold': 0.05,           │ │
+│ │                         │   │   │   'importance_threshold': 5            │ │
+│ │                         │   │   }                                        │ │
+│ │                         │   },                                           │ │
+│ │                         │   'long': {                                    │ │
+│ │                         │   │   'jump_threshold_lower': 80,              │ │
+│ │                         │   │   'importance_score_initialization':       │ │
+│ │                         'sample',                                        │ │
+│ │                         │   │   'decay_params': {                        │ │
+│ │                         │   │   │   'recency_factor': 365.0,             │ │
+│ │                         │   │   │   'importance_factor': 0.988           │ │
+│ │                         │   │   },                                       │ │
+│ │                         │   │   'clean_up_threshold_dict': {             │ │
+│ │                         │   │   │   'recency_threshold': 0.05,           │ │
+│ │                         │   │   │   'importance_threshold': 5            │ │
+│ │                         │   │   }                                        │ │
+│ │                         │   },                                           │ │
+│ │                         │   'reflection': {                              │ │
+│ │                         │   │   'importance_score_initialization':       │ │
+│ │                         'sample',                                        │ │
+│ │                         │   │   'decay_params': {                        │ │
+│ │                         │   │   │   'recency_factor': 365.0,             │ │
+│ │                         │   │   │   'importance_factor': 0.988           │ │
+│ │                         │   │   },                                       │ │
+│ │                         │   │   'clean_up_threshold_dict': {             │ │
+│ │                         │   │   │   'recency_threshold': 0.05,           │ │
+│ │                         │   │   │   'importance_threshold': 5            │ │
+│ │                         │   │   }                                        │ │
+│ │                         │   }                                            │ │
+│ │                         }                                                │ │
+│ │           config_path = 'config/generated_configs/SHEL_L_config.toml'    │ │
+│ │              end_time = '2024-12-31'                                     │ │
+│ │          env_data_pkl = {                                                │ │
+│ │                         │   datetime.date(2019, 1, 2): {                 │ │
+│ │                         │   │   'price': {'SHEL.L': 2333.089111328125},  │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 3): {                 │ │
+│ │                         │   │   'price': {'SHEL.L': 2334.085205078125},  │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 4): {                 │ │
+│ │                         │   │   'price': {'SHEL.L': 2360.50146484375},   │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 7): {                 │ │
+│ │                         │   │   'price': {'SHEL.L': 2360.50146484375},   │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 8): {                 │ │
+│ │                         │   │   'price': {'SHEL.L': 2351.531005859375},  │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 9): {                 │ │
+│ │                         │   │   'price': {'SHEL.L': 2367.97802734375},   │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 10): {                │ │
+│ │                         │   │   'price': {'SHEL.L': 2384.425537109375},  │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 11): {                │ │
+│ │                         │   │   'price': {'SHEL.L': 2354.0224609375},    │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 14): {                │ │
+│ │                         │   │   'price': {'SHEL.L': 2337.574462890625},  │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   datetime.date(2019, 1, 15): {                │ │
+│ │                         │   │   'price': {'SHEL.L': 2359.5048828125},    │ │
+│ │                         │   │   'filing_k': {},                          │ │
+│ │                         │   │   'filing_q': {},                          │ │
+│ │                         │   │   'news': {}                               │ │
+│ │                         │   },                                           │ │
+│ │                         │   ... +1504                                    │ │
+│ │                         }                                                │ │
+│ │           environment = <puppy.environment.MarketEnvironment object at   │ │
+│ │                         0x753a02779ad0>                                  │ │
+│ │                     f = <_io.BufferedReader                              │ │
+│ │                         name='data/03_model_input/env_data_SHEL_L.pkl'>  │ │
+│ │          file_handler = <FileHandler                                     │ │
+│ │                         /home/i/ivanlee/finmem/data/04_model_output_log… │ │
+│ │                         (NOTSET)>                                        │ │
+│ │                logger = <Logger __main__ (INFO)>                         │ │
+│ │     logging_formatter = <logging.Formatter object at 0x753a0c54a290>     │ │
+│ │ market_data_info_path = 'data/03_model_input/env_data_SHEL_L.pkl'        │ │
+│ │           result_path = 'data/07_test_model_output/SHEL_L'               │ │
+│ │              run_mode = 'test'                                           │ │
+│ │          run_mode_var = <RunMode.Test: 1>                                │ │
+│ │            start_time = '2020-01-01'                                     │ │
+│ │    trained_agent_path = 'data/06_train_checkpoint/SHEL_L'                │ │
+│ ╰──────────────────────────────────────────────────────────────────────────╯ │
+│                                                                              │
+│ /home/i/ivanlee/finmem/puppy/agent.py:639 in load_checkpoint                 │
+│                                                                              │
+│   636 │   @classmethod                                                       │
+│   637 │   def load_checkpoint(cls, path: str) -> "LLMAgent":                 │
+│   638 │   │   # load state dict                                              │
+│ ❱ 639 │   │   with open(os.path.join(path, "state_dict.pkl"), "rb") as f:    │
+│   640 │   │   │   state_dict = pickle.load(f)                                │
+│   641 │   │   # load brain                                                   │
+│   642 │   │   brain = BrainDB.load_checkpoint(path=os.path.join(path, "brain │
+│                                                                              │
+│ ╭───────────────────── locals ─────────────────────╮                         │
+│ │ path = 'data/06_train_checkpoint/SHEL_L/agent_1' │                         │
+│ ╰──────────────────────────────────────────────────╯                         │
+╰──────────────────────────────────────────────────────────────────────────────╯
+FileNotFoundError: [Errno 2] No such file or directory: 
+'data/06_train_checkpoint/SHEL_L/agent_1/state_dict.pkl'

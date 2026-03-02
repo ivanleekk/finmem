@@ -1,0 +1,15 @@
+Task 12 handling indices 22 to 23
+========================================
+Processing Ticker: O39_SI
+Using Data File: data/03_model_input/env_data_O39_SI.pkl
+========================================
+>>> Starting TRAINING phase for O39_SI...
+>>> Starting TESTING phase for O39_SI...
+>>> Finished processing O39_SI.
+========================================
+Processing Ticker: PG
+Using Data File: data/03_model_input/env_data_PG.pkl
+========================================
+>>> Starting TRAINING phase for PG...
+>>> Starting TESTING phase for PG...
+>>> Finished processing PG.

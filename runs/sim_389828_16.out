@@ -1,0 +1,15 @@
+Task 16 handling indices 30 to 31
+========================================
+Processing Ticker: WMT
+Using Data File: data/03_model_input/env_data_WMT.pkl
+========================================
+>>> Starting TRAINING phase for WMT...
+>>> Starting TESTING phase for WMT...
+>>> Finished processing WMT.
+========================================
+Processing Ticker: Z74_SI
+Using Data File: data/03_model_input/env_data_Z74_SI.pkl
+========================================
+>>> Starting TRAINING phase for Z74_SI...
+>>> Starting TESTING phase for Z74_SI...
+>>> Finished processing Z74_SI.

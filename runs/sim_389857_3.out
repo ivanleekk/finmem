@@ -1,0 +1,6 @@
+Task 3 handling indices 4 to 5
+========================================
+Processing Ticker: AAPL
+Using Data File: data/03_model_input/env_data_AAPL.pkl
+========================================
+>>> Starting TRAINING phase for AAPL...

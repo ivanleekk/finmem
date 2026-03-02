@@ -43,8 +43,8 @@ class MarketEnvironment:
         except ValidationError as e:
             raise e
         self.date_series = env_data_pkl.keys()
-        if (start_date not in self.date_series) or (end_date not in self.date_series):
-            raise ValueError("start_date and end_date must be in env_data_pkl keys")
+#        if (start_date not in self.date_series) or (end_date not in self.date_series):
+#            raise ValueError("start_date and end_date must be in env_data_pkl keys")
         self.date_series = [
             i for i in self.date_series if (i >= start_date) and (i <= end_date)
         ]
@@ -93,19 +93,19 @@ class MarketEnvironment:
         if len(cur_filing_k) == 0:
             cur_filing_k = None
         else:
-            cur_filing_k = cur_filing_k[self.symbol]
+            cur_filing_k = list(cur_filing_k.values())[0]
         if len(cur_filing_q) == 0:
             cur_filing_q = None
         else:
-            cur_filing_q = cur_filing_q[self.symbol]
+            cur_filing_q = list(cur_filing_q.values())[0]
 
         return (
             cur_date,
-            cur_price[self.symbol],
+            list(cur_price.values())[0],
             cur_filing_k,
             cur_filing_q,
-            cur_news[self.symbol],
-            cur_record[self.symbol],
+            list(cur_news.values())[0],
+            list(cur_record.values())[0],
             False,
         )
 

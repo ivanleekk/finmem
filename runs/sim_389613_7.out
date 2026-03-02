@@ -1,0 +1,15 @@
+Task 7 handling indices 12 to 13
+========================================
+Processing Ticker: D05_SI
+Using Data File: data/03_model_input/env_data_D05_SI.pkl
+========================================
+>>> Starting TRAINING phase for D05_SI...
+>>> Starting TESTING phase for D05_SI...
+>>> Finished processing D05_SI.
+========================================
+Processing Ticker: HD
+Using Data File: data/03_model_input/env_data_HD.pkl
+========================================
+>>> Starting TRAINING phase for HD...
+>>> Starting TESTING phase for HD...
+>>> Finished processing HD.

@@ -1,0 +1,15 @@
+Task 6 handling indices 10 to 11
+========================================
+Processing Ticker: BRK-B
+Using Data File: data/03_model_input/env_data_BRK-B.pkl
+========================================
+>>> Starting TRAINING phase for BRK-B...
+>>> Starting TESTING phase for BRK-B...
+>>> Finished processing BRK-B.
+========================================
+Processing Ticker: COST
+Using Data File: data/03_model_input/env_data_COST.pkl
+========================================
+>>> Starting TRAINING phase for COST...
+>>> Starting TESTING phase for COST...
+>>> Finished processing COST.
