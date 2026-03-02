@@ -72,17 +72,16 @@ class ChatOpenAICompatible(ABC):
             self.other_parameters = {} if other_parameters is None else other_parameters
 
     def parse_response(self, response: httpx.Response) -> str:
-        if self.model.startswith("gpt"):
-            response_out = response.json()
-            return response_out["choices"][0]["message"]["content"]
-        elif self.model.startswith("gemini-pro"):
+        print(f"Raw response: {response.text}")
+        if self.model.startswith("gemini-pro"):
             response_out = response.json()
             return response_out["candidates"][0]["content"]["parts"][0]["text"]
         elif self.model.startswith("tgi"):
             response_out = response.json()  # [0]
             return response_out["generated_text"]
         else:
-            raise NotImplementedError(f"Model {self.model} not implemented")
+            response_out = response.json()
+            return response_out["choices"][0]["message"]["content"]
 
     def guardrail_endpoint(self) -> Callable:
         def end_point(input: str, **kwargs) -> str:

@@ -1,7 +1,7 @@
 [project]
 name = "finmem"
 version = "0.0.0"
-description = ""
+description = "finmem"
 authors = [
     { name = "Haohang Li", email = "hli113@stevens.edu" }
 ]

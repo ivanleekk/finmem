@@ -200,26 +200,28 @@ def _format_memories(
 
 
 def _delete_placeholder_info(validated_output: Dict[str, Any]) -> Dict[str, Any]:
-    if "reflection_memory_index" in validated_output and (
-        (validated_output["reflection_memory_index"])
-        and (validated_output["reflection_memory_index"][0]["memory_index"] == -1)
-    ):
-        del validated_output["reflection_memory_index"]
-    if "long_memory_index" in validated_output and (
-        (validated_output["long_memory_index"])
-        and (validated_output["long_memory_index"][0]["memory_index"] == -1)
-    ):
-        del validated_output["long_memory_index"]
-    if "middle_memory_index" in validated_output and (
-        (validated_output["middle_memory_index"])
-        and (validated_output["middle_memory_index"][0]["memory_index"] == -1)
-    ):
-        del validated_output["middle_memory_index"]
-    if "short_memory_index" in validated_output and (
-        (validated_output["short_memory_index"])
-        and (validated_output["short_memory_index"][0]["memory_index"] == -1)
-    ):
-        del validated_output["short_memory_index"]
+    def _is_placeholder(value: Any) -> bool:
+        if value is None:
+            return True
+        if isinstance(value, list):
+            if len(value) == 0:
+                return False
+            first_item = value[0]
+            if isinstance(first_item, dict):
+                return first_item.get("memory_index") in {-1, None}
+            return first_item in {-1, None}
+        if isinstance(value, dict):
+            return value.get("memory_index") in {-1, None}
+        return value in {-1, None}
+
+    for key in [
+        "reflection_memory_index",
+        "long_memory_index",
+        "middle_memory_index",
+        "short_memory_index",
+    ]:
+        if key in validated_output and _is_placeholder(validated_output[key]):
+            del validated_output[key]
 
     return validated_output
 
@@ -288,7 +290,10 @@ def _train_response_model_invest_info(
     if reflection_memory:
         investment_info += "The reflection-term information:\n"
         investment_info += "\n".join(
-            [f"{i[0]}. {i[1].strip()}" for i in zip(reflection_memory_id, reflection_memory)]
+            [
+                f"{i[0]}. {i[1].strip()}"
+                for i in zip(reflection_memory_id, reflection_memory)
+            ]
         )
         investment_info += "\n\n"
 
@@ -341,7 +346,10 @@ def _test_response_model_invest_info(
     if reflection_memory:
         investment_info += "The reflection-term information:\n"
         investment_info += "\n".join(
-            [f"{i[0]}. {i[1].strip()}" for i in zip(reflection_memory_id, reflection_memory)]
+            [
+                f"{i[0]}. {i[1].strip()}"
+                for i in zip(reflection_memory_id, reflection_memory)
+            ]
         )
         investment_info += "\n\n"
     if momentum:
@@ -368,6 +376,24 @@ def trading_reflection(
     reflection_memory: Union[List[str], None] = None,
     reflection_memory_id: Union[List[int], None] = None,
 ) -> Dict[str, Any]:
+    def _fallback_output(error_message: str) -> Dict[str, Any]:
+        if run_mode == RunMode.Train:
+            return {
+                "summary_reason": error_message,
+                "short_memory_index": None,
+                "middle_memory_index": None,
+                "long_memory_index": None,
+                "reflection_memory_index": None,
+            }
+        return {
+            "investment_decision": "hold",
+            "summary_reason": error_message,
+            "short_memory_index": None,
+            "middle_memory_index": None,
+            "long_memory_index": None,
+            "reflection_memory_index": None,
+        }
+
     # format memories
     (
         short_memory,
@@ -431,21 +457,27 @@ def trading_reflection(
             endpoint_func,
             prompt_params={"investment_info": investment_info},
         )
+        validated_output = None
+        if isinstance(validated_outcomes, tuple):
+            if len(validated_outcomes) >= 2:
+                validated_output = validated_outcomes[1]
+        else:
+            validated_output = getattr(validated_outcomes, "validated_output", None)
+
         logger.info("Guardrails Raw LLM Outputs")
-        for i, o in enumerate(guard.history[0].raw_outputs):
-            logger.info(f"Reask {i}")
-            logger.info(o)
-            logger.info("\n\n")
+        guard_history = getattr(guard, "history", None)
+        if guard_history and len(guard_history) > 0:
+            raw_outputs = getattr(guard_history[0], "raw_outputs", None)
+            if raw_outputs:
+                for i, o in enumerate(raw_outputs):
+                    logger.info(f"Reask {i}")
+                    logger.info(o)
+                    logger.info("\n\n")
         # print(guard.history.last.tree)
-        if (validated_outcomes.validated_output is None) or (
-            not isinstance(validated_outcomes.validated_output, dict)
-        ):
+        if (validated_output is None) or (not isinstance(validated_output, dict)):
             logger.info(f"reflection failed for {symbol}")
-            if run_mode == RunMode.Train:
-                return {"summary_reason": validated_outcomes.__dict__['reask'].__dict__['fail_results'][0].__dict__['error_message'], "short_memory_index": None, "middle_memory_index": None, "long_memory_index": None, "reflection_memory_index": None}
-            else:
-                return {"investment_decision" : "hold", "summary_reason": validated_outcomes.__dict__['reask'].__dict__['fail_results'][0].__dict__['error_message'], "short_memory_index": None, "middle_memory_index": None, "long_memory_index": None, "reflection_memory_index": None}
-        return _delete_placeholder_info(validated_outcomes.validated_output)
+            return _fallback_output("JSON does not match schema")
+        return _delete_placeholder_info(validated_output)
 
     except Exception as e:
         if isinstance(e.__context__, LongerThanContextError):

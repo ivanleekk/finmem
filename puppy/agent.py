@@ -129,7 +129,7 @@ class LLMAgent(Agent):
         chat_config = chat_config.copy()
         end_point = chat_config["end_point"]
         model = chat_config["model"]
-        system_message = chat_config["system_message"]# truncator
+        system_message = chat_config["system_message"]  # truncator
         self.model_name = chat_config["model"]
         self.max_token_short = chat_config.get("max_token_short", None)
         self.max_token_mid = chat_config.get("max_token_mid", None)
@@ -177,11 +177,22 @@ class LLMAgent(Agent):
             )
 
     def _handling_news(self, cur_date: date, news: List[str]) -> None:
-        if news != {}:
+        if not news:
+            return
+        if isinstance(news, str):
+            if news.strip() == "":
+                return
             self.brain.add_memory_short(
                 symbol=self.trading_symbol, date=cur_date, text=news
             )
-    
+            return
+        cleaned_news = [item for item in news if isinstance(item, str) and item.strip()]
+        if not cleaned_news:
+            return
+        self.brain.add_memory_short(
+            symbol=self.trading_symbol, date=cur_date, text=cleaned_news
+        )
+
     def __query_info_for_reflection(self, run_mode: RunMode):
         # sourcery skip: low-code-quality
         self.logger.info(f"Symbol: {self.trading_symbol}\n")

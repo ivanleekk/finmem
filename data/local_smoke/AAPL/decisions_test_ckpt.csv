@@ -1,0 +1,11 @@
+date,investment_decision,summary_reason,direction
+2019-01-07,,,1
+2019-01-14,,,1
+2019-01-28,,,-1
+2019-02-04,,,1
+2019-02-11,,,1
+2020-01-06,buy,"The cumulative return of the past 3 days for this stock is positive, indicating upward momentum. As the investor is risk-seeking given the positive cumulative return, and there's no contradictory short, mid, long, or reflection term information, the decision is to buy.",1
+2020-01-13,buy,"The cumulative return of the past 3 days for the stock is positive, indicating upward momentum. As the investor is risk-seeking given the positive cumulative return, and there is no contradictory information from short-term, mid-term, or long-term data, the decision is to buy.",1
+2020-01-27,buy,"The cumulative return of the past 3 days for the stock is positive, indicating upward momentum. As the investor is risk-seeking given the positive cumulative return, and there is no contradictory information from short-term, mid-term, or long-term data, the decision is to buy.",1
+2020-02-03,buy,"The cumulative return of the past 3 days for the stock is positive, indicating upward momentum. As the investor is risk-seeking given the positive cumulative return, and there is no contradictory information from short-term, mid-term, or long-term data, the decision is to buy.",1
+2020-02-10,buy,"The cumulative return of the past 3 days for the stock is positive, indicating upward momentum. Since the investor is risk-seeking given the positive cumulative return and there is no contradictory information from short-term, mid-term, or long-term data, the decision is to buy.",1

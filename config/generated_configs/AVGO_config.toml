@@ -1,5 +1,5 @@
 [chat]
-model = "z-ai/glm-4-32b"
+model = "google/gemini-2.5-flash-lite"
 end_point = "https://openrouter.ai/api/v1/chat/completions"
 system_message = "You are a helpful assistant."
 

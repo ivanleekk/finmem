@@ -43,8 +43,8 @@ class MarketEnvironment:
         except ValidationError as e:
             raise e
         self.date_series = env_data_pkl.keys()
-#        if (start_date not in self.date_series) or (end_date not in self.date_series):
-#            raise ValueError("start_date and end_date must be in env_data_pkl keys")
+        #        if (start_date not in self.date_series) or (end_date not in self.date_series):
+        #            raise ValueError("start_date and end_date must be in env_data_pkl keys")
         self.date_series = [
             i for i in self.date_series if (i >= start_date) and (i <= end_date)
         ]
@@ -82,8 +82,8 @@ class MarketEnvironment:
         if self.env_data[self.cur_date]["news"] != {}:
             cur_news = self.env_data[self.cur_date]["news"]
         else:
-            cur_news = {self.symbol: ''}
-            
+            cur_news = {self.symbol: []}
+
         cur_record = {
             symbol: future_price[symbol] - cur_price[symbol]  # type: ignore
             for symbol in cur_price  # type: ignore

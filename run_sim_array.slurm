@@ -69,6 +69,14 @@ for i in $(seq $START_IDX $END_IDX); do
             --result-path "$TEST_RESULT" \
             --trained-agent-path "$TRAIN_CKPT"
 
+        echo ">>> Exporting backtest decisions for $TICKER..."
+        if [ -d "$TEST_RESULT/agent_1" ]; then
+            uv run export_results.py --base-dir "$TEST_RESULT"
+            echo ">>> Backtest file pattern: ${TICKER}_decisions_<start>_<end>_finmem.csv"
+        else
+            echo "[WARN] Missing test result checkpoint at $TEST_RESULT/agent_1, skip export for $TICKER"
+        fi
+
         echo ">>> Finished processing $TICKER."
     fi
 done
