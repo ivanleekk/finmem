@@ -1,0 +1,15 @@
+Task 13 handling indices 24 to 25
+========================================
+Processing Ticker: RR_L
+Using Data File: data/03_model_input/env_data_RR_L.pkl
+========================================
+>>> Starting TRAINING phase for RR_L...
+>>> Starting TESTING phase for RR_L...
+>>> Finished processing RR_L.
+========================================
+Processing Ticker: SHEL_L
+Using Data File: data/03_model_input/env_data_SHEL_L.pkl
+========================================
+>>> Starting TRAINING phase for SHEL_L...
+>>> Starting TESTING phase for SHEL_L...
+>>> Finished processing SHEL_L.

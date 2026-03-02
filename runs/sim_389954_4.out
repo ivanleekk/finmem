@@ -1,0 +1,15 @@
+Task 4 handling indices 6 to 7
+========================================
+Processing Ticker: AMZN
+Using Data File: data/03_model_input/env_data_AMZN.pkl
+========================================
+>>> Starting TRAINING phase for AMZN...
+>>> Starting TESTING phase for AMZN...
+>>> Finished processing AMZN.
+========================================
+Processing Ticker: AVGO
+Using Data File: data/03_model_input/env_data_AVGO.pkl
+========================================
+>>> Starting TRAINING phase for AVGO...
+>>> Starting TESTING phase for AVGO...
+>>> Finished processing AVGO.

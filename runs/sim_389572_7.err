@@ -1,0 +1,44 @@
+warning: No `requires-python` value found in the workspace. Defaulting to `>=3.11`.
+Traceback (most recent call last):
+  File "/home/i/ivanlee/finmem/run.py", line 11, in <module>
+    from puppy import MarketEnvironment, LLMAgent, RunMode
+  File "/home/i/ivanlee/finmem/puppy/__init__.py", line 2, in <module>
+    from .agent import LLMAgent
+  File "/home/i/ivanlee/finmem/puppy/agent.py", line 13, in <module>
+    from .reflection import trading_reflection
+  File "/home/i/ivanlee/finmem/puppy/reflection.py", line 4, in <module>
+    import guardrails as gd
+ModuleNotFoundError: No module named 'guardrails'
+warning: No `requires-python` value found in the workspace. Defaulting to `>=3.11`.
+Traceback (most recent call last):
+  File "/home/i/ivanlee/finmem/run.py", line 11, in <module>
+    from puppy import MarketEnvironment, LLMAgent, RunMode
+  File "/home/i/ivanlee/finmem/puppy/__init__.py", line 2, in <module>
+    from .agent import LLMAgent
+  File "/home/i/ivanlee/finmem/puppy/agent.py", line 13, in <module>
+    from .reflection import trading_reflection
+  File "/home/i/ivanlee/finmem/puppy/reflection.py", line 4, in <module>
+    import guardrails as gd
+ModuleNotFoundError: No module named 'guardrails'
+warning: No `requires-python` value found in the workspace. Defaulting to `>=3.11`.
+Traceback (most recent call last):
+  File "/home/i/ivanlee/finmem/run.py", line 11, in <module>
+    from puppy import MarketEnvironment, LLMAgent, RunMode
+  File "/home/i/ivanlee/finmem/puppy/__init__.py", line 2, in <module>
+    from .agent import LLMAgent
+  File "/home/i/ivanlee/finmem/puppy/agent.py", line 13, in <module>
+    from .reflection import trading_reflection
+  File "/home/i/ivanlee/finmem/puppy/reflection.py", line 4, in <module>
+    import guardrails as gd
+ModuleNotFoundError: No module named 'guardrails'
+warning: No `requires-python` value found in the workspace. Defaulting to `>=3.11`.
+Traceback (most recent call last):
+  File "/home/i/ivanlee/finmem/run.py", line 11, in <module>
+    from puppy import MarketEnvironment, LLMAgent, RunMode
+  File "/home/i/ivanlee/finmem/puppy/__init__.py", line 2, in <module>
+    from .agent import LLMAgent
+  File "/home/i/ivanlee/finmem/puppy/agent.py", line 13, in <module>
+    from .reflection import trading_reflection
+  File "/home/i/ivanlee/finmem/puppy/reflection.py", line 4, in <module>
+    import guardrails as gd
+ModuleNotFoundError: No module named 'guardrails'

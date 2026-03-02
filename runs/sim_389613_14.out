@@ -1,0 +1,15 @@
+Task 14 handling indices 26 to 27
+========================================
+Processing Ticker: TSLA
+Using Data File: data/03_model_input/env_data_TSLA.pkl
+========================================
+>>> Starting TRAINING phase for TSLA...
+>>> Starting TESTING phase for TSLA...
+>>> Finished processing TSLA.
+========================================
+Processing Ticker: U11_SI
+Using Data File: data/03_model_input/env_data_U11_SI.pkl
+========================================
+>>> Starting TRAINING phase for U11_SI...
+>>> Starting TESTING phase for U11_SI...
+>>> Finished processing U11_SI.

@@ -1,0 +1,6 @@
+Task 16 handling indices 30 to 31
+========================================
+Processing Ticker: WMT
+Using Data File: data/03_model_input/env_data_WMT.pkl
+========================================
+>>> Starting TRAINING phase for WMT...

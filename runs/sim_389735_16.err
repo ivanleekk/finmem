@@ -1,0 +1,72 @@
+Traceback (most recent call last):
+  File "/home/i/ivanlee/finmem/run.py", line 11, in <module>
+    from puppy import MarketEnvironment, LLMAgent, RunMode
+  File "/home/i/ivanlee/finmem/puppy/__init__.py", line 2, in <module>
+    from .agent import LLMAgent
+  File "/home/i/ivanlee/finmem/puppy/agent.py", line 13, in <module>
+    from .reflection import trading_reflection
+  File "/home/i/ivanlee/finmem/puppy/reflection.py", line 4, in <module>
+    import guardrails as gd
+  File "/home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/guardrails/__init__.py", line 3, in <module>
+    from guardrails.guard import Guard
+  File "/home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/guardrails/guard.py", line 10, in <module>
+    from guardrails.rail import Rail
+  File "/home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/guardrails/rail.py", line 11, in <module>
+    from guardrails.utils.pydantic_utils import create_xml_element_for_base_model
+  File "/home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/guardrails/utils/pydantic_utils.py", line 24, in <module>
+    from pydantic.fields import ModelField
+ImportError: cannot import name 'ModelField' from 'pydantic.fields' (/home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/pydantic/fields.py)
+Traceback (most recent call last):
+  File "/home/i/ivanlee/finmem/run.py", line 11, in <module>
+    from puppy import MarketEnvironment, LLMAgent, RunMode
+  File "/home/i/ivanlee/finmem/puppy/__init__.py", line 2, in <module>
+    from .agent import LLMAgent
+  File "/home/i/ivanlee/finmem/puppy/agent.py", line 13, in <module>
+    from .reflection import trading_reflection
+  File "/home/i/ivanlee/finmem/puppy/reflection.py", line 4, in <module>
+    import guardrails as gd
+  File "/home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/guardrails/__init__.py", line 3, in <module>
+    from guardrails.guard import Guard
+  File "/home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/guardrails/guard.py", line 10, in <module>
+    from guardrails.rail import Rail
+  File "/home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/guardrails/rail.py", line 11, in <module>
+    from guardrails.utils.pydantic_utils import create_xml_element_for_base_model
+  File "/home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/guardrails/utils/pydantic_utils.py", line 24, in <module>
+    from pydantic.fields import ModelField
+ImportError: cannot import name 'ModelField' from 'pydantic.fields' (/home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/pydantic/fields.py)
+Traceback (most recent call last):
+  File "/home/i/ivanlee/finmem/run.py", line 11, in <module>
+    from puppy import MarketEnvironment, LLMAgent, RunMode
+  File "/home/i/ivanlee/finmem/puppy/__init__.py", line 2, in <module>
+    from .agent import LLMAgent
+  File "/home/i/ivanlee/finmem/puppy/agent.py", line 13, in <module>
+    from .reflection import trading_reflection
+  File "/home/i/ivanlee/finmem/puppy/reflection.py", line 4, in <module>
+    import guardrails as gd
+  File "/home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/guardrails/__init__.py", line 3, in <module>
+    from guardrails.guard import Guard
+  File "/home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/guardrails/guard.py", line 10, in <module>
+    from guardrails.rail import Rail
+  File "/home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/guardrails/rail.py", line 11, in <module>
+    from guardrails.utils.pydantic_utils import create_xml_element_for_base_model
+  File "/home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/guardrails/utils/pydantic_utils.py", line 24, in <module>
+    from pydantic.fields import ModelField
+ImportError: cannot import name 'ModelField' from 'pydantic.fields' (/home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/pydantic/fields.py)
+Traceback (most recent call last):
+  File "/home/i/ivanlee/finmem/run.py", line 11, in <module>
+    from puppy import MarketEnvironment, LLMAgent, RunMode
+  File "/home/i/ivanlee/finmem/puppy/__init__.py", line 2, in <module>
+    from .agent import LLMAgent
+  File "/home/i/ivanlee/finmem/puppy/agent.py", line 13, in <module>
+    from .reflection import trading_reflection
+  File "/home/i/ivanlee/finmem/puppy/reflection.py", line 4, in <module>
+    import guardrails as gd
+  File "/home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/guardrails/__init__.py", line 3, in <module>
+    from guardrails.guard import Guard
+  File "/home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/guardrails/guard.py", line 10, in <module>
+    from guardrails.rail import Rail
+  File "/home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/guardrails/rail.py", line 11, in <module>
+    from guardrails.utils.pydantic_utils import create_xml_element_for_base_model
+  File "/home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/guardrails/utils/pydantic_utils.py", line 24, in <module>
+    from pydantic.fields import ModelField
+ImportError: cannot import name 'ModelField' from 'pydantic.fields' (/home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/pydantic/fields.py)

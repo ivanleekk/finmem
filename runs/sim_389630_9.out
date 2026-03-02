@@ -1,0 +1,15 @@
+Task 9 handling indices 16 to 17
+========================================
+Processing Ticker: JPM
+Using Data File: data/03_model_input/env_data_JPM.pkl
+========================================
+>>> Starting TRAINING phase for JPM...
+>>> Starting TESTING phase for JPM...
+>>> Finished processing JPM.
+========================================
+Processing Ticker: KO
+Using Data File: data/03_model_input/env_data_KO.pkl
+========================================
+>>> Starting TRAINING phase for KO...
+>>> Starting TESTING phase for KO...
+>>> Finished processing KO.

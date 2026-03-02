@@ -60,7 +60,7 @@ def get_global_filings(stock_dict):
 
             # We look for 10-K/Q (Domestic) and 20-F (Foreign Annual)
             filings = company.get_filings(form=["10-K", "10-Q", "20-F"]).filter(
-                date="2020-01-01:"
+                date="2019-01-01:"
             )
 
             for filing in filings:

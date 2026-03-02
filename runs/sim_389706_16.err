@@ -1,0 +1,68 @@
+Traceback (most recent call last):
+  File "/home/i/ivanlee/finmem/run.py", line 11, in <module>
+    from puppy import MarketEnvironment, LLMAgent, RunMode
+  File "/home/i/ivanlee/finmem/puppy/__init__.py", line 2, in <module>
+    from .agent import LLMAgent
+  File "/home/i/ivanlee/finmem/puppy/agent.py", line 13, in <module>
+    from .reflection import trading_reflection
+  File "/home/i/ivanlee/finmem/puppy/reflection.py", line 4, in <module>
+    import guardrails as gd
+  File "/home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/guardrails/__init__.py", line 3, in <module>
+    from guardrails.guard import Guard
+  File "/home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/guardrails/guard.py", line 8, in <module>
+    from guardrails.llm_providers import PromptCallable, get_llm_ask
+  File "/home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/guardrails/llm_providers.py", line 17, in <module>
+    openai.error.APIConnectionError,
+    ^^^^^^^^^^^^
+AttributeError: module 'openai' has no attribute 'error'
+Traceback (most recent call last):
+  File "/home/i/ivanlee/finmem/run.py", line 11, in <module>
+    from puppy import MarketEnvironment, LLMAgent, RunMode
+  File "/home/i/ivanlee/finmem/puppy/__init__.py", line 2, in <module>
+    from .agent import LLMAgent
+  File "/home/i/ivanlee/finmem/puppy/agent.py", line 13, in <module>
+    from .reflection import trading_reflection
+  File "/home/i/ivanlee/finmem/puppy/reflection.py", line 4, in <module>
+    import guardrails as gd
+  File "/home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/guardrails/__init__.py", line 3, in <module>
+    from guardrails.guard import Guard
+  File "/home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/guardrails/guard.py", line 8, in <module>
+    from guardrails.llm_providers import PromptCallable, get_llm_ask
+  File "/home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/guardrails/llm_providers.py", line 17, in <module>
+    openai.error.APIConnectionError,
+    ^^^^^^^^^^^^
+AttributeError: module 'openai' has no attribute 'error'
+Traceback (most recent call last):
+  File "/home/i/ivanlee/finmem/run.py", line 11, in <module>
+    from puppy import MarketEnvironment, LLMAgent, RunMode
+  File "/home/i/ivanlee/finmem/puppy/__init__.py", line 2, in <module>
+    from .agent import LLMAgent
+  File "/home/i/ivanlee/finmem/puppy/agent.py", line 13, in <module>
+    from .reflection import trading_reflection
+  File "/home/i/ivanlee/finmem/puppy/reflection.py", line 4, in <module>
+    import guardrails as gd
+  File "/home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/guardrails/__init__.py", line 3, in <module>
+    from guardrails.guard import Guard
+  File "/home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/guardrails/guard.py", line 8, in <module>
+    from guardrails.llm_providers import PromptCallable, get_llm_ask
+  File "/home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/guardrails/llm_providers.py", line 17, in <module>
+    openai.error.APIConnectionError,
+    ^^^^^^^^^^^^
+AttributeError: module 'openai' has no attribute 'error'
+Traceback (most recent call last):
+  File "/home/i/ivanlee/finmem/run.py", line 11, in <module>
+    from puppy import MarketEnvironment, LLMAgent, RunMode
+  File "/home/i/ivanlee/finmem/puppy/__init__.py", line 2, in <module>
+    from .agent import LLMAgent
+  File "/home/i/ivanlee/finmem/puppy/agent.py", line 13, in <module>
+    from .reflection import trading_reflection
+  File "/home/i/ivanlee/finmem/puppy/reflection.py", line 4, in <module>
+    import guardrails as gd
+  File "/home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/guardrails/__init__.py", line 3, in <module>
+    from guardrails.guard import Guard
+  File "/home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/guardrails/guard.py", line 8, in <module>
+    from guardrails.llm_providers import PromptCallable, get_llm_ask
+  File "/home/i/ivanlee/finmem/.venv/lib/python3.11/site-packages/guardrails/llm_providers.py", line 17, in <module>
+    openai.error.APIConnectionError,
+    ^^^^^^^^^^^^
+AttributeError: module 'openai' has no attribute 'error'

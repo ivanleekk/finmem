@@ -1,0 +1,36 @@
+warning: No `requires-python` value found in the workspace. Defaulting to `>=3.11`.
+  × No solution found when resolving dependencies for split (markers:
+  │ python_full_version >= '3.14' and sys_platform == 'win32'):
+  ╰─▶ Because there is no version of codecov==2.0.15 and all versions of
+      guardrails depend on codecov==2.0.15, we can conclude that all versions
+      of guardrails cannot be used.
+      And because you require guardrails, we can conclude that your
+      requirements are unsatisfiable.
+
+      hint: While the active Python version is 3.11, the resolution failed for
+      other Python versions supported by your project. Consider limiting your
+      project's supported Python versions using `requires-python`.
+warning: No `requires-python` value found in the workspace. Defaulting to `>=3.11`.
+  × No solution found when resolving dependencies for split (markers:
+  │ python_full_version >= '3.14' and sys_platform == 'win32'):
+  ╰─▶ Because there is no version of codecov==2.0.15 and all versions of
+      guardrails depend on codecov==2.0.15, we can conclude that all versions
+      of guardrails cannot be used.
+      And because you require guardrails, we can conclude that your
+      requirements are unsatisfiable.
+
+      hint: While the active Python version is 3.11, the resolution failed for
+      other Python versions supported by your project. Consider limiting your
+      project's supported Python versions using `requires-python`.
+warning: No `requires-python` value found in the workspace. Defaulting to `>=3.11`.
+  × No solution found when resolving dependencies for split (markers:
+  │ python_full_version >= '3.14' and sys_platform == 'win32'):
+  ╰─▶ Because there is no version of codecov==2.0.15 and all versions of
+      guardrails depend on codecov==2.0.15, we can conclude that all versions
+      of guardrails cannot be used.
+      And because you require guardrails, we can conclude that your
+      requirements are unsatisfiable.
+
+      hint: While the active Python version is 3.11, the resolution failed for
+      other Python versions supported by your project. Consider limiting your
+      project's supported Python versions using `requires-python`.

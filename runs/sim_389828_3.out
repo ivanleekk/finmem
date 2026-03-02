@@ -1,0 +1,15 @@
+Task 3 handling indices 4 to 5
+========================================
+Processing Ticker: AAPL
+Using Data File: data/03_model_input/env_data_AAPL.pkl
+========================================
+>>> Starting TRAINING phase for AAPL...
+>>> Starting TESTING phase for AAPL...
+>>> Finished processing AAPL.
+========================================
+Processing Ticker: ABBV
+Using Data File: data/03_model_input/env_data_ABBV.pkl
+========================================
+>>> Starting TRAINING phase for ABBV...
+>>> Starting TESTING phase for ABBV...
+>>> Finished processing ABBV.

@@ -1,0 +1,6 @@
+Task 1 handling indices 0 to 1
+========================================
+Processing Ticker: 0700_HK
+Using Data File: data/03_model_input/env_data_0700_HK.pkl
+========================================
+>>> Starting TRAINING phase for 0700_HK...

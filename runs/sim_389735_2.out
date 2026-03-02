@@ -1,0 +1,15 @@
+Task 2 handling indices 2 to 3
+========================================
+Processing Ticker: 1398_HK
+Using Data File: data/03_model_input/env_data_1398_HK.pkl
+========================================
+>>> Starting TRAINING phase for 1398_HK...
+>>> Starting TESTING phase for 1398_HK...
+>>> Finished processing 1398_HK.
+========================================
+Processing Ticker: 9988_HK
+Using Data File: data/03_model_input/env_data_9988_HK.pkl
+========================================
+>>> Starting TRAINING phase for 9988_HK...
+>>> Starting TESTING phase for 9988_HK...
+>>> Finished processing 9988_HK.

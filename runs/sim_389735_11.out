@@ -1,0 +1,15 @@
+Task 11 handling indices 20 to 21
+========================================
+Processing Ticker: MSFT
+Using Data File: data/03_model_input/env_data_MSFT.pkl
+========================================
+>>> Starting TRAINING phase for MSFT...
+>>> Starting TESTING phase for MSFT...
+>>> Finished processing MSFT.
+========================================
+Processing Ticker: NVDA
+Using Data File: data/03_model_input/env_data_NVDA.pkl
+========================================
+>>> Starting TRAINING phase for NVDA...
+>>> Starting TESTING phase for NVDA...
+>>> Finished processing NVDA.

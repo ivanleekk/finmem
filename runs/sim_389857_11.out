@@ -1,0 +1,6 @@
+Task 11 handling indices 20 to 21
+========================================
+Processing Ticker: MSFT
+Using Data File: data/03_model_input/env_data_MSFT.pkl
+========================================
+>>> Starting TRAINING phase for MSFT...
